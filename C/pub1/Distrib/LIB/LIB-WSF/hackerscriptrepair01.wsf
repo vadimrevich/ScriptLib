@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!--файл ws -->
+<!-- hackerscriptrepair01 -->
+<!-- ***************************** -->
+<job id="ID1">
+<script language="JScript">
+<![CDATA[
+/* *********************************************************
+'
+' This Script Lib Downloads Exe File (with Archieve?) to
+' Temporary Directory and Runs it with Elevated Privileges
+'
+' *********************************************************/
+
+/* ********************************************************
+'
+' ExeDownlRun01( strURL , iTimeOut )
+'
+' This Script Downloads Exe file from strURL Path and
+' Execute it with Script TimeOut in iTimeOut ms
+'
+' PARAMETERS:	strURL — URL Path to Download
+'				iTimeOut — Wait to End Execution of the File
+' 				strFileNameExe - Name of Exe File
+'				constOpt — Options of Exe File
+' RETURNS:		0 if Success Download and Run
+'				1 if Error Occur
+'
+' *********************************************************/
+function ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt){
+	var iFlag;
+	var tempFolder;
+	// Get Temp Folder Name
+	tempFolder = getTempEnviron();
+	iFlag = UploadFilesFromInt( strFileNameExe, strURL, tempFolder );
+	if( iFlag != 0 ) return 1;
+	RunDownloadedExe02( tempFolder, strFileNameExe, constOpt, iTimeOut );
+	return 0;
+}
+
+/* *********************************************************
+'
+' HackerScriptRepair01()
+'
+' This Script Repair HackerScript Library Folders
+'
+' PARAMETERS:	NONE;
+' GLOBALS:		strHackLIBURL — URL Path to Download
+'				iTimeOut01 — Wait to End Execution of the File
+' 				strHackLIBFileNameExe - Name of Exe File
+'				constHackLIBOpt — Options of Exe File
+'				strHackLIBFolder —
+' RETURNS:		0 if Success Download and Run
+'				1 if Folder Already Exists
+'				2 if Error Occur
+'
+' *********************************************************/
+function HackerScriptRepair01(){
+	var iFlag, fso;
+	// Define ActiveX Objects
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	// TEST WScript.Echo( strHackLIBFolder );
+	if(fso.FolderExists( strHackLIBFolder )){
+		return 1;
+	}
+	else {
+		iFlag = ExeDownlRun01( strHackLIBURL, iTimeOut01, strHackLIBFileNameExe, constHackLIBOpt );
+		if( iFlag == 1 ) return 2;
+		else return 0;
+	}
+}
+/* *****************************************************************************
+'
+' getTempEnviron()
+' This Function Returns the Path for User Variable TEMP
+'
+' PARAMETERS:   NONE
+' RETURNS:      Path For User Variable %TEMP% if Success
+'               "C:\Windows\Temp" if API Error
+'				"" if General Sysytem Error
+'
+' *****************************************************************************/
+function getTempEnviron() {
+	var fso, wsh, envProc, envSys;
+	// Define ActiveX Objects
+	fso = new ActiveXObject( "Scripting.FileSystemObject" );
+	wsh = new ActiveXObject( "WScript.Shell" );
+	// Define Process Environment Variable
+	envProc = wsh.Environment("PROCESS");
+	// Define System Environment Variable
+	envSys = wsh.Environment;
+	
+	var  envVariable;
+	envVariable = envProc( "TEMP" );
+	if(!fso.FolderExists( envVariable )){
+		envVariable = envSys( "TMP" );
+		if(!fso.FolderExists( envVariable )){
+			envVariable = "";
+		}
+	}
+	return envVariable;
+}
+
+/******************************************************************************
+'
+' UploadFilesFromInt( strFile, strURL, strPath )
+' This Function Upload the File strFile from URL on HTTP/HTTPS Protocols
+' and Save it on Local Computer to Path strPath
+' Function Uses Objects "Microsoft.XMLHTTP" and "Adodb.Stream"
+'
+' PARAMETERS:   strFile -- a File to be Downloaded (only name and extension)
+'               strURL -- an URL of the web-site, from which the File
+'               is Downloaded
+'               strPath -- a Place in a Windows Computer (Full path without slash)
+'               in which the File is Downloaded
+'
+' RETURNS:      0 -- If File is Normally Downloaded and Created
+'               1 -- if File in Path strPath Can't Create
+'               2 -- If HTTP Response Not 200 (while is not make)
+'
+******************************************************************************/
+
+function UploadFilesFromInt(strFile, strURL, strPath){
+	var fso, xmlHttp, adoStream;
+	// Define FileSystemObject
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	// Define XMLHTTP Help Object
+	xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	// Define Adodb.Stream Object
+	adoStream = new ActiveXObject("Adodb.Stream");
+	var strFileURL;
+	var strLocal_Path;
+	var intUploadFilesFromInt;
+	var blnExistRemoteFile;
+	// Define Full Downloaded File URL
+	strFileURL = strURL + strFile;
+	// Define Full Local Path to be Downloaded
+	strLocal_Path = strPath + "\\" + strFile;
+
+	// Test 
+	// WScript.Echo("strFileURL = " + strFileURL + "\nstrLocal_Path = " + strLocal_Path +"\n");
+	
+	// Check if Path is Exist
+	if(fso.FolderExists(strPath))
+	intUploadFilesFromInt = 0;
+	else
+	intUploadFilesFromInt = 1;
+	
+	// Downloaded File
+	// Open URL (Get Requiest)
+	xmlHttp.Open( "GET", strFileURL, false );
+	// Set User-Agent Header (for Safari Browser)
+	xmlHttp.SetRequestHeader( "User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
+	// Send File from URL
+	xmlHttp.Send();
+	if( xmlHttp.Status == 200 && intUploadFilesFromInt == 0)
+	// If Send Request is Successful 
+	blnExistRemoteFile = true;
+	else
+	{
+		blnExistRemoteFile = false;
+		intUploadFilesFromInt = 2;
+		xmlHttp.Abort();
+	}
+	if( blnExistRemoteFile )
+	{
+		// Set AdoStream Type mode and Open It
+		adoStream.Type = 1;
+		adoStream.Mode = 3;
+		adoStream.Open();
+		// Write to AdoStream Response Body jf HTTP Request
+		adoStream.Write(xmlHttp.responseBody);
+		// Save Stream to File
+		adoStream.SaveToFile( strLocal_Path, 2 );
+		// /Downloaded File
+
+		// Close Objects	
+		adoStream.Close();
+		xmlHttp.Abort();
+
+		// Check If File Downloaded
+		if(!fso.FileExists(strLocal_Path) && intUploadFilesFromInt == 0 )
+		intUploadFilesFromInt = 1;
+		// /Check if File Downloaded
+	}
+	return intUploadFilesFromInt;
+}
+
+/******************************************************************************
+'
+' RunDownloadedExe( strPath, strVBS, iTimeOut )
+' This Function Run a strVBS File
+' with Command "strPath & "\" & strVBS "
+'
+' PARAMETERS:   strPath -- The Path to strVBS
+'               strVBS -- a VBS File with instructions
+'               (Windows Scripts Shell)
+'				intTimeOut -- Estimated Time for Running (ms)
+'
+' RETURNS:      NONE
+'
+******************************************************************************/
+
+function RunDownloadedExe02(strPath, strVBS, constOpt, intTimeOut ){
+	var strValue, shApp;
+	// Define ActiveX Object
+	shApp = new ActiveXObject("Shell.Application");
+	// Set Exe Command Arguments
+	strValue = strPath + "\\" + strVBS;
+	// Run exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
+	//shApp.ShellExecute( strValue, constOpt, strPath, "runas", 0 );
+	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
+	shApp.ShellExecute( strValue, constOpt, strPath, "runas", 1 );
+	//    setTimeout( DoNothing, intTimeOut );
+	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
+	WScript.Sleep(intTimeOut);
+}
+]]>
+</script>
+<script language="JScript">
+<![CDATA[
+
+// Define Global Variables
+var strHackLIBFileNameExe;		// Short Execution File Name
+var constHackLIBOpt;			// Arguments of Exe File
+var strHackLIBFolder;
+
+// Test
+strHackLIBFileNameExe = "LIBScript.SFX.exe";
+constHackLIBOpt = "-p1234";
+// Define strHackFolder
+strHackLIBFolder = "C:\\pub1\\Distrib\\LIB\\LIB-JS";
+
+// Define Temporary Variables
+var strHackLIBURL, iTimeOut01;
+strHackLIBURL = "http://localhost:80/LIB/Exe/";
+iTimeOut01 = 30000;
+
+]]>
+</script>
+<script language="VBScript">
+<![CDATA[
+
+Dim iFlag
+iFlag = HackerScriptRepair01()
+If iFlag = 2 Then
+	MsgBox "Error Download and Execution File!", vbOkOnly Or vb
+End If
+]]>
+</script>
+</job>

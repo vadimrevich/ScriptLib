@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!--файл ws -->
+<!-- echo.wsf -->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript" src="c:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+	<script language="VBScript" src="c:\pub1\Distrib\LIB\LIB-VBS\helloworld01.exe.vbs"></script>
+	<script language="VBScript">
+	<![CDATA[
+		
+		' Set Global Variables
+		Dim strFileNameHello 
+                strFileNameHello = "HelloWorld01.exe"
+
+		Dim iFlag
+		iFlag = HelloWorld01Exec()
+		If iFlag = 1 Then
+			WScript.Echo "Copy Error!"
+		End If
+	]]>
+	</script>
+</job>

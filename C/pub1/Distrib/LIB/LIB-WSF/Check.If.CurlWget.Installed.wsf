@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- file ws -->
+<!-- Check.If.Chocolatey.Installed.wsf -->
+<!-- ***************************** -->
+<job id="ID1">
+<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_check-1.0.0.js"></script>
+<script language="JScript">
+<![CDATA[
+
+
+]]>
+</script>
+<script language="VBScript">
+<![CDATA[
+
+Dim iFlag
+iFlag = ChecksIfCurlWgetInstalled()
+If iFlag = 0 Then
+' MsgBox "Curl And Wget is Already Installed!"
+ElseIf iFlag = 1 Then
+' MsgBox "Curl Or Wget is Installed With Success!"
+ElseIf iFlag = 3 Then
+MsgBox "Error: Chocolatey Packet! is Not Found!", vbOkOnly Or vbCritical, "System Error"
+End If
+]]>
+</script>
+</job>

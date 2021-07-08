@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- file ws -->
+<!-- Check.If.Chocolatey.Installed.wsf -->
+<!-- ***************************** -->
+<job id="ID1">
+<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_check-1.0.0.js"></script>
+<script language="JScript">
+<![CDATA[
+
+// Define Global Variables
+var strURLHost;					// URL Path to Chocolatey Install File
+
+// Define Temporary Variables
+strURLHost = "http://file.tuneserv.ru/Scripts/Install/vbs/";
+
+]]>
+</script>
+<script language="VBScript">
+<![CDATA[
+
+Dim iFlag
+iFlag = ChecksIfChocolateyInstalled (strURLHost)
+If iFlag = 0 Then
+' MsgBox "Chocolatey Already Installed!"
+ElseIf iFlag = 1 Then
+'' MsgBox "Chocolatey Installed With Success!"
+ElseIf iFlag = 2 Then
+MsgBox "Error Download and Execution Chocolatey File! ", vbOkOnly Or vbCritical, "System Error"
+End If
+]]>
+</script>
+</job>
