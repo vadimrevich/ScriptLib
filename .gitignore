@@ -89,6 +89,11 @@ Debug/
 Release/
 
 # ========================
+# Icons Files
+# ========================
+*.ico
+
+# ========================
 # Certificates Files
 # ========================
 *.cer
@@ -100,5 +105,7 @@ Release/
 # ========================
 # Misc Files
 # ========================
-Scripts/LIBScript.7z
-Scripts/LIBScript.SFX.exe
+Scripts/*.7z
+Scripts/*.SFX.exe
+C/
+

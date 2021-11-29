@@ -5,12 +5,13 @@
 <!-- ***************************** -->
 <job id="ID1">
 <script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.1.0.js"></script>
+<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_install-1.0.0.js"></script>
 <script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_check-1.0.0.js"></script>
 <script language="JScript">
 <![CDATA[
 
 var strSource;
-strSource = "http://ware.tuneserv.ru:8624/nuget/choco-feed/";
 
 ]]>
 </script>
@@ -18,13 +19,15 @@ strSource = "http://ware.tuneserv.ru:8624/nuget/choco-feed/";
 <![CDATA[
 
 Dim iFlag
-iFlag = ChecksIfHiddenStartInstalled( strSource )
+iFlag = ChecksIfHiddenStartInstalled()
 If iFlag = 0 Then
-' MsgBox "HiddenStart is Already Installed!"
+	'MsgBox "HiddenStart is Already Installed!"
 ElseIf iFlag = 1 Then
-' MsgBox "HiddenStart is Installed With Success!"
+	'MsgBox "HiddenStart is Installed With Success!"
 ElseIf iFlag = 3 Then
-MsgBox "Error: Chocolatey Packet! is Not Found!", vbOkOnly Or vbCritical, "System Error"
+	MsgBox "Error: Chocolatey Packet! is Not Found!", vbOkOnly Or vbCritical, "System Error"
+	MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
+	RunRestartImmediately
 End If
 ]]>
 </script>

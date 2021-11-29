@@ -1,17 +1,21 @@
-REM Данный скрипт создаёт 7Zip архив для создания SFX инсталлятора пакета
-REM Затем этот архив передаётся программе s-SFX Bulder для создания 
-REM самораспаковывающегося архива с паролем.
-REM
-REM Пароль на программу нужен, поскольку до сих пор многие антивирусы
-REM воспринимают данный пакет как вредоносный, хотя весь вредоносный 
-REM код из него убран. 
-REM Пароль будет меняться от версии к версии и от производителя к
-REM производителю. Вы также можете установить собственный пароль
-REM при сборке дистрибутива.
-REM
-REM Для создания архива убедитесь, что у Вас установлена программа 7Zip,
-REM путь к ней прописан в системном окружении и запустите данный файл.
+rem This script create 7Zip archive for creating an SFX packets installer
+rem Than this archive is given to s-SFX Builder program for creating
+rem a self-extracted archive with password.
+rem
+rem A password for archive is needed because so far many antiviruses
+rem detect this packet as malware although all harmful code will be deleted
+rem from it.
+rem
+rem The password will be changed from version to version and from manufacturer
+rem to manufacturer. Also You can set your own password by the assembly
+rem of installer
+rem
+rem For an archive creation You must satisfy yourself that You hane installed
+rem a program of 7Zip, and its path is scripted at system environment.
+rem After You must run this script. 
 
-REM Пароль к установленной программе <1234>
-del .\Scripts\LIBScript.7z
-7z a -m0=LZMA2 -p1234 -r .\Scripts\LIBScript.7z .\C\*.*
+rem The password for creating archive is <szbeck>
+set SCRIPT=Szbek.7z
+set PASS=szbeck
+del .\Scripts\%SCRIPT%
+7z a -m0=LZMA2 -p%PASS% -r .\Scripts\%SCRIPT% .\C\*.*

@@ -2,6 +2,11 @@
 *
 * LIB_CHECK.JS
 * This file contain main modules for System Checks
+* and Install
+* 
+* Revision 1.0.0.1 (Basic Beta). May be Present
+* This Library links on lib_func-1.1.0.js 
+* and lib_check-1.0.0.js
 *
 ************************************************************/
 
@@ -11,13 +16,13 @@
 '
 ' This function Checks If Chocolatey Packets Installed and Install it if no
 '
-' PPARAMETERS:	strURLHost — URL to File Download
+' PPARAMETERS:	NONE
 ' RETURNS:	0 if Chocolatey Installed
 '		    1 if not Installed
 '			2 if Installation Error Occur
 '
 ' *********************************************************/
-function ChecksIfChocolateyInstalled (strURLHost) {
+function ChecksIfChocolateyInstalled () {
 	// body... 
 	var strVar, iFlag;
 	strVar = "ChocolateyInstall";
@@ -25,11 +30,7 @@ function ChecksIfChocolateyInstalled (strURLHost) {
 	if( iFlag == 0 )
 		return iFlag;
 	else {
-		var strURLHost, strFile, iTimeOut;
-		//strFile = "echo.1.wsf" //Test
-		strFile = "sysupdate.vbs";
-		iTimeOut = 60000;
-		iFlag = WshDownlRun01(strURLHost, iTimeOut, strFile);
+		iFlag = ChocolateyInstall ();
 		if( iFlag == 1 )
 			return 2;
 		else
@@ -77,8 +78,9 @@ function WshDownlRun01( strURL, iTimeOut, strFileName ){
 '				3 if Chocolatey Not Installed'
 '
 ' *********************************************************/
-function ChecksIfCurlWgetInstalled () {
+function ChecksIfCurlWgetInstalled (){
 	// body... 
+	var iFlagCurl, iFlagWget;
 	var strVar, iFlag, wsh, envProc, fso;
 	// Define ActiveX Variables
     wsh = new ActiveXObject("WScript.Shell");
@@ -87,38 +89,42 @@ function ChecksIfCurlWgetInstalled () {
 	// Define Variables
 	strVar = "ChocolateyInstall";
 	iFlag = CheckIfFolderVariableDefined (strVar);
-	if( iFlag > 0 )
+	if( iFlag > 0 ){
+		iFlag = ChocolateyInstall ();
 		return 3;
+	}
 	else {
+		var strFolder, strCurl, strWget;
+		strFolder =envProc(strVar);
+		strFolder += "\\bin";
 		iFlag = 0;
 		var strCurl, strWget, bFlag1;
-		strCurl = envProc( strVar ) + "\\bin\\curl.exe";
-		strWget = envProc( strVar ) + "\\bin\\wget.exe";
+		strCurl =  "curl.exe";
+		strWget = "wget.exe";
 		// Check if curl Not Installed
-		bFlag1 = fso.FileExists( strCurl );
-		if( bFlag1 == false ){
-			var shApp, strApplication, strOption;
-			// Define ActiveX Variables
-			shApp = new ActiveXObject("Shell.Application");
-			// Code
-			iFlag = 1;
-			strApplication = envProc( strVar ) + "\\bin\\cinst.exe";
-			strOption = "-y --ignore-checksum " + "curl";
-			shApp.ShellExecute(strApplication, strOption, envProc( strVar ), "runas", 0 );
-			WScript.Sleep(300000);
+		iFlagCurl = CheckIfFileOrFolderExist( strCurl, strFolder );
+		if( iFlagCurl == 2 ){
+			return 2;
 		}
-		// Check if Wget Not Installed
-		bFlag1 = fso.FileExists( strWget );
-		if( bFlag1 == false ){
-			var shApp, strApplication, strOption;
-			// Define ActiveX Variables
-			shApp = new ActiveXObject("Shell.Application");
-			// Code
-			iFlag = 1;
-			strApplication = envProc( strVar ) + "\\bin\\cinst.exe";
-			strOption = "-y --ignore-checksum " + "wget";
-			shApp.ShellExecute(strApplication, strOption, envProc( strVar ), "runas", 0 );
-			WScript.Sleep(300000);
+		else if (iFlagCurl == 1) {
+			iFlag = CurlInstall();
+			if( iFlag == 2 ) return 2;
+			iFlagCurl = 0;
+		}
+		iFlagWget = CheckIfFileOrFolderExist( strWget, strFolder );
+		if( iFlagWget == 2 ){
+			return 2;
+		}
+		else if (iFlagWget == 1) {
+			iFlag = WgetInstall();
+			if( iFlag == 2 ) return 2;
+			iFlagWget = 0;
+		}
+		if (iFlagCurl == 0 && iFlagWget == 0 ) {
+			return 0;
+		}
+		else {
+			return 1;
 		}
 	}
 	return iFlag;
@@ -131,13 +137,13 @@ function ChecksIfCurlWgetInstalled () {
 ' This function Checks If HiddenStart Packet 
 ' Installed and Install it if no
 '
-' PPARAMETERS:	strSource — Source Chocolatey repo
+' PPARAMETERS:	NONE
 ' RETURNS:		0 if Chocolatey Installed
 '		    	1 if not Installed
 '				3 if Chocolatey Not Installed'
 '
 ' *********************************************************/
-function ChecksIfHiddenStartInstalled ( strSource) {
+function ChecksIfHiddenStartInstalled () {
 	// body... 
 	var strVar, iFlag, wsh, envProc, fso;
 	// Define ActiveX Variables
@@ -147,8 +153,10 @@ function ChecksIfHiddenStartInstalled ( strSource) {
 	// Define Variables
 	strVar = "ChocolateyInstall";
 	iFlag = CheckIfFolderVariableDefined (strVar);
-	if( iFlag > 0 )
+	if( iFlag > 0 ){
+		iFlag = ChocolateyInstall ();
 		return 3;
+	}
 	else {
 		iFlag = 0;
 		var strFilePath, bFlag1;
@@ -156,17 +164,67 @@ function ChecksIfHiddenStartInstalled ( strSource) {
 		// Check if curl Not Installed
 		bFlag1 = fso.FileExists( strFilePath );
 		if( bFlag1 == false ){
-			var shApp, strApplication, strOption;
-			// Define ActiveX Variables
-			shApp = new ActiveXObject("Shell.Application");
-			// Code
-			iFlag = 1;
-			strApplication = envProc( strVar ) + "\\bin\\cinst.exe";
-			strOption = "-y --ignore-checksum " + "hidden.start.nit.main" + " --source " + strSource;
-			shApp.ShellExecute(strApplication, strOption, envProc( strVar ), "runas", 0 );
-			WScript.Sleep(300000);
+			iFlag = HiddenStartInstall();
+			if( iFlag != 0 ){
+				iFlag = 1;
+			}
 		}
 	}
 	return iFlag;
 }
+
+/* *********************************************************
+'
+' NIT_ShedulerReinstall
+'
+' This function Force Reinstall NIT-Schedule Packet 
+'
+' PPARAMETERS:	NONE
+' RETURNS:		0 if Chocolatey Installed
+'		    	2 if Error Occur
+'				3 if Chocolatey Not Installed'
+'
+' *********************************************************/
+function NIT_ShedulerReinstall() {
+	// body... 
+	var iFlag;
+	iFlag = ChecksIfCurlWgetInstalled ()
+	if( iFlag == 3 ) {
+		return 3;
+	}
+	if( iFlag != 0 ) {
+		return 2;
+	}
+	iFlag = NITScheduleInstall();
+	if (iFlag != 0) {
+		return 2;
+	}
+	return 0;
+}
+
+/* *********************************************************
+'
+' NIT_RevMonReinstall
+'
+' This function Force Reinstall Reverse Monitoring Packet 
+'
+' PPARAMETERS:	NONE
+' RETURNS:		0 if Chocolatey Installed
+'		    	2 if Error Occur
+'
+' *********************************************************/
+function NIT_RevMonReinstall() {
+	// body... 
+	var iFlag;
+	iFlag = ChecksIfChocolateyInstalled ()
+	if( iFlag != 0 ) {
+		return 3;
+	}
+	iFlag = ReverseMonInstall();
+	if (iFlag != 0) {
+		return 2;
+	}
+	return 0;
+}
+
 
