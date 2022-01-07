@@ -47,6 +47,7 @@ $RECYCLE.BIN/
 *.app
 *.exe
 *.war
+*.dll
 
 # Windows archieve files
 # *.zip
@@ -75,6 +76,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.msu
 
 # Windows shortcuts
 *.lnk

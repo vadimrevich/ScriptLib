@@ -13,10 +13,10 @@
 
 /* *********************************************************
 '
-' ChocolateyInstall
+' ChocolateyInstall_OLD
 '
 ' This function Install Chocolatey Packet and its Updates
-' and dependences
+' and dependences (deprecated)
 '
 ' PPARAMETERS:	NONE
 ' EXTERNAL SET PARAMETERS:
@@ -27,12 +27,40 @@
 '		2 if If Errors Occur
 '
 ' *********************************************************/
-function ChocolateyInstall () {
+function ChocolateyInstall_OLD() {
 	var strFile, iTimeOut;
 	strURLHost = "http://file.tuneserv.ru/Scripts/Install/vbs/"; // URL to File Download
 	strFile = "sysupdate.vbs";
-	iTimeOut = 360000;
-	iFlag = ScriptDownlRun01( strURLHost, strFile, iTimeOut );
+	iTimeOut = 360000; // 6 min
+	iFlag = ScriptDownlRun03( strURLHost, strFile );
+	if( iFlag == 1 )
+		return 2;
+	else
+		return 0;
+}
+
+/* *********************************************************
+'
+' ChocolateyInstall_WinNew
+'
+' This function Install Chocolatey Packet and its Updates
+' and dependences
+'
+' PPARAMETERS:	NONE
+' EXTERNAL SET PARAMETERS:
+'	strURLHost = "http://file.tuneserv.ru/WinUpdate/WindowsMainUpdate/Other/"; // URL to File Download
+'	strFile = "chock.install-001.cmd";
+	iTimeOut = 360000; // 6 min
+' RETURNS:	0 if Success
+'		2 if If Errors Occur
+'
+' *********************************************************/
+function ChocolateyInstall_WinNew () {
+	var strFile, iTimeOut;
+	strURLHost = "http://file.tuneserv.ru/WinUpdate/WindowsMainUpdate/Other/"; // URL to File Download
+	strFile = "chock.install-001.cmd";
+	iTimeOut = 360000; // 6 min
+	iFlag = CmdDownlRun03( strURLHost, strFile );
 	if( iFlag == 1 )
 		return 2;
 	else
@@ -65,7 +93,7 @@ function CurlInstall() {
 	strVar = "ChocolateyInstall";
 	strName = "curl";
 	strSource = ""
-	iTimeOut = 240000;
+	iTimeOut = 240000; //4 min
     iFlag = CheckIfFolderVariableDefined (strVar);
 	if( iFlag > 0 )
 		return 2;
@@ -111,7 +139,7 @@ function WgetInstall() {
 	strVar = "ChocolateyInstall";
 	strName = "wget";
 	strSource = ""
-	iTimeOut = 240000;
+	iTimeOut = 240000; //4 min
     iFlag = CheckIfFolderVariableDefined (strVar);
 	if( iFlag > 0 )
 		return 2;
@@ -133,7 +161,7 @@ function WgetInstall() {
 
 /* *********************************************************
 '
-' HiddenStartInstall
+' HiddenStartInstall_WinNew
 '
 ' This function Install Hidden Start Packet and its Updates
 ' and dependences
@@ -148,7 +176,7 @@ function WgetInstall() {
 '		2 if If Errors Occur
 '
 ' *********************************************************/
-function HiddenStartInstall() {
+function HiddenStartInstall_WinNew() {
 	// body... 
 	// Define Variables
 	var strVar, wsh, envProc, iFlag;
@@ -156,7 +184,7 @@ function HiddenStartInstall() {
 	strVar = "ChocolateyInstall";
 	strName = "hidden.start.nit.main";
 	strSource = " --source http://ware.tuneserv.ru:8624/nuget/choco-feed/"
-	iTimeOut = 240000;
+	iTimeOut = 240000; // 4 min
     iFlag = CheckIfFolderVariableDefined (strVar);
 	if( iFlag > 0 )
 		return 2;
@@ -209,7 +237,7 @@ function NITScheduleInstall() {
 '
 ' ReverseMonInstall
 '
-' This function Install NIT Schedule Packet 
+' This function Install NIT Reverse Monitoring Packet 
 '
 ' PPARAMETERS:	NONE 
 ' EXTERNAL SET PARAMETERS:
@@ -218,7 +246,7 @@ function NITScheduleInstall() {
 '	iTimeOut = 240000; // 4 min
 '	constOpt = "/VERYSILENT /NOCANCEL"; // Constant Options for EXE File (INNO Setup)
 ' RETURNS:	0 if Success
-'		2 if If Errors Occur
+'			2 if If Errors Occur
 '
 ' *********************************************************/
 function ReverseMonInstall() {
@@ -226,9 +254,9 @@ function ReverseMonInstall() {
 	var strFile, iTimeOut;
  	strURLHost = "http://file.tuneserv.ru:80/WinUpdate/WindowsMainUpdate/Other/"; //URL to File Download
 	strFile = "ReverseMonitoringSetup.exe";
-	iTimeOut = 240000; // 3 min
+	iTimeOut = 240000; // 4 min
 	constOpt = "/VERYSILENT /NOCANCEL"; // Constant Options for EXE File (INNO Setup)
-	iFlag = ExeDownlRun01( strURLHost, iTimeOut, strFile, constOpt);
+	iFlag = ExeDownlRun03( strURLHost, strFile, constOpt);
 	if( iFlag == 1 )
 		return 2;
 	else

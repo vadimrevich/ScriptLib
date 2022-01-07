@@ -8,26 +8,29 @@
 <script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.1.0.js"></script>
 <script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_install-1.0.0.js"></script>
 <script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_check-1.0.0.js"></script>
+<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_smartinstall-1.0.0.js"></script>
 <script language="JScript">
 <![CDATA[
 
-var strSource;
+// Define Global Variables
+var strURLHost;					// URL Path to Chocolatey Install File
+
+// Define Temporary Variables
 
 ]]>
 </script>
 <script language="VBScript">
 <![CDATA[
 
-Dim iFlag
-iFlag = ChecksIfHiddenStartInstalled()
+Dim iFlag, iFlag1
+iFlag = ChecksSmartChocolateyInstalled_WinNew()
+
 If iFlag = 0 Then
-	'MsgBox "HiddenStart is Already Installed!", vbOkOnly Or vbInformation, "System Attention"
+	'MsgBox "Chocolatey is Already Installed!", vbOkOnly Or vbInformation, "System Attention"
 ElseIf iFlag = 1 Then
-	MsgBox "HiddenStart is Installed With Success!", vbOkOnly Or vbInformation, "System Attention"
-'ElseIf iFlag = 3 Then
-'	MsgBox "Error: Chocolatey Packet! is Not Found!", vbOkOnly Or vbCritical, "System Error"
-'	MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
-'	RunRestartImmediately
+	MsgBox "Chocolatey have Just Installed!", vbOkOnly Or vbInformation, "System Attention"
+ElseIf iFlag = 2 Then
+	MsgBox "Error Chocolatey Installation and its Packets!" & vbCrLf & "Check Windows Version and Updates." & vbCrLf, vbOkOnly Or vbCritical, "System Error"
 End If
 ]]>
 </script>

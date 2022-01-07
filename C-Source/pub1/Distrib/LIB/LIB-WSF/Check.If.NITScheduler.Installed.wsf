@@ -31,10 +31,10 @@ If iFlag = 0 Then
 	'MsgBox "NIT Scheduler is Already Installed!"
 ElseIf iFlag = 2 Then
 	'MsgBox "Error: NIT Scheduler Packet: is Not Installed!", vbOkOnly Or vbCritical, "System Error"
-ElseIf iFlag = 3 Then
-	MsgBox "Error: Chocolatey Packet! is Not Found!", vbOkOnly Or vbCritical, "System Error"
-	MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
-	RunRestartImmediately
+'ElseIf iFlag = 3 Then
+'	MsgBox "Error: Chocolatey Packet! is Not Found!", vbOkOnly Or vbCritical, "System Error"
+'	MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
+'	RunRestartImmediately
 End If
 ]]>
 </script>

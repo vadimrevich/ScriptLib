@@ -8,6 +8,133 @@
 *
 ******************************************************************************/
 
+/******************************************************************************
+'
+' RunDownloadedScript01( strPath, strVBS, intTimeOut )
+' This Function Run Hidden a strVBS File
+' with Command "cscript //NoLogo " & strPath & "\" & strVBS
+'
+' PARAMETERS:   strPath -- The Path to strVBS
+'               strVBS -- a VBS File with instructions
+'               (Windows Scripts Shell)
+'				intTimeOut -- Estimated Time for Running (ms)
+'
+' RETURNS:      0 if Success
+'				1 if Path not Found
+'
+******************************************************************************/
+
+function RunDownloadedScript01(strPath, strVBS, intTimeOut ){
+    var constRun_VBS, constOpt;
+    // Define Windows Scripts Options
+    constRun_VBS = "//Nologo ";
+    // Define VBS Script Options (Empty)
+    constOpt = "";
+    var strValue, shApp, fso, wsh, envProc, pathCMD;
+    // Define ActiveX Object
+    shApp = new ActiveXObject("Shell.Application");
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    envProc = wsh.Environment("PROCESS");
+    pathCMD = envProc("SystemRoot") + "\\System32";
+    // Check Paths
+    if (!fso.FileExists(pathCMD + "\\cscript.exe")) {return 1};
+    if (!fso.FileExists(strPath + "\\" + strVBS)) {return 1};
+    // Set Cscript Command Arguments
+    strValue = constRun_VBS +"\"" + strPath + "\\" + strVBS + "\"" + constOpt;
+    // Run cscript.exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
+    shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "runas", 0 );
+    // Run cscript.exe with Normal Privileges ("") at Normal Mode (1), with working Diretory strPath
+    // shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "", 1 );
+//    setTimeout( DoNothing, intTimeOut );
+    // Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
+    WScript.Sleep(intTimeOut);
+    return 0;
+}
+
+/******************************************************************************
+'
+' RunDownloadedScript02( strPath, strVBS )
+' This Function Run a strVBS File
+' with Command "cscript //NoLogo " & strPath & "\" & strVBS
+'
+' PARAMETERS:   strPath -- The Path to strVBS
+'               strVBS -- a VBS File with instructions
+'               (Windows Scripts Shell)
+'				intTimeOut -- Estimated Time for Running (ms)
+'
+' RETURNS:      0 if Success
+'				1 if Path not Found
+'
+******************************************************************************/
+
+function RunDownloadedScript02(strPath, strVBS, intTimeOut ){
+    var constRun_VBS, constOpt;
+    // Define Windows Scripts Options
+    constRun_VBS = "//Nologo ";
+    // Define VBS Script Options (Empty)
+    constOpt = "";
+    var strValue, shApp, fso, wsh, envProc, pathCMD;
+    // Define ActiveX Object
+    shApp = new ActiveXObject("Shell.Application");
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    envProc = wsh.Environment("PROCESS");
+    pathCMD = envProc("SystemRoot") + "\\System32";
+    // Check Paths
+    if (!fso.FileExists(pathCMD + "\\cscript.exe")) {return 1};
+    if (!fso.FileExists(strPath + "\\" + strVBS)) {return 1};
+    // Set Cscript Command Arguments
+    strValue = constRun_VBS +"\"" + strPath + "\\" + strVBS + "\"" + constOpt;
+    // Run cscript.exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
+    //shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "runas", 0 );
+    // Run cscript.exe with Normal Privileges ("") at Normal Mode (1), with working Diretory strPath
+    shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "", 1 );
+//    setTimeout( DoNothing, intTimeOut );
+    // Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
+    WScript.Sleep(intTimeOut);
+    return 0;
+}
+
+/******************************************************************************
+'
+' RunDownloadedScript03( strPath, strVBS )
+' This Function Run a strVBS File
+' with Command "cscript //NoLogo " & strPath & "\" & strVBS
+' (with metho WScript.Run
+'
+' PARAMETERS:   strPath -- The Path to strVBS
+'               strVBS -- a VBS File with instructions
+'               (Windows Scripts Shell)
+'
+' RETURNS:      0 if Success
+'				1 if Path not Found
+'
+******************************************************************************/
+
+function RunDownloadedScript03(strPath, strVBS ){
+    var constRun_VBS, constOpt;
+    // Define Windows Scripts Options
+    constRun_VBS = "//Nologo ";
+    // Define VBS Script Options (Empty)
+    constOpt = "";
+    var strValue, fso, wsh, envProc, pathCMD, strCommand;
+    // Define ActiveX Object
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    envProc = wsh.Environment("PROCESS");
+    pathCMD = envProc("SystemRoot") + "\\System32";
+	strCommand = pathCMD + "\\cscript.exe"
+    // Check Paths
+    if (!fso.FileExists(strCommand)) {return 1};
+    if (!fso.FileExists(strPath + "\\" + strVBS)) {return 1};
+    // Set Cscript Command Arguments
+    strValue = "\"" + strCommand + "\" " + constRun_VBS +"\"" + strPath + "\\" + strVBS + "\"" + constOpt;
+    // Run cscript.exe with Current Privileges (runas) at Invisible Mode (0)
+	wsh.Run( strValue, 0, true );
+    return 0;
+}
+
 
 /* ********************************************************
 '
@@ -40,20 +167,18 @@ function ScriptDownlRun01( strURL, strFileNameWSH, iTimeOut ){
 
 /* ********************************************************
 '
-' ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt)
+' ScriptDownlRun03( strURL , strFileNameWSH, iTimeOut )
 '
-' This Script Downloads Exe file from strURL Path and
-' Execute it with Script TimeOut in iTimeOut ms
+' This Script Downloads Script file from strURL Path and
+' Execute it with Script with Current Priveleges
 '
-' PARAMETERS:	strURL - URL Path to Download
-'				iTimeOut - Wait to End Execution of the File
-' 				strFileNameExe - Name of Exe File
-'				constOpt - Options of Exe File
+' PARAMETERS:	strURL an URL Path to Download
+' 				strFileNameWSH - Name of WSH File
 ' RETURNS:		0 if Success Download and Run
 '				1 if Error Occur
 '
 ' *********************************************************/
-function ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt){
+function ScriptDownlRun03( strURL, strFileNameWSH ){
 	var iFlag;
 	var tempFolder;
 	// Get Temp Folder Name
@@ -62,9 +187,9 @@ function ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt){
 	if( tempFolder === "" ) {
 		return 1;
 	}
-	iFlag = UploadFilesFromInt( strFileNameExe, strURL, tempFolder );
+	iFlag = UploadFilesFromInt( strFileNameWSH, strURL, tempFolder );
 	if( iFlag != 0 ) return 1;
-	RunDownloadedExe01( tempFolder, strFileNameExe, constOpt, iTimeOut );
+	RunDownloadedScript03(tempFolder, strFileNameWSH );
 	return 0;
 }
 
@@ -72,7 +197,7 @@ function ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt){
 '
 ' ScriptDownlRunIfChecked00( strURL , strFileNameWSH, iTimeOut, strFile, strFolder )
 '
-' This Script Downloads Exe file from strURL Path and
+' This Script Downloads WshScript file from strURL Path and
 ' Execute it with Script TimeOut in iTimeOut ms
 ' if strFile or strFolder is Present on Local Computer
 '
@@ -116,6 +241,200 @@ function ScriptDownlRunIfChecked00( strURL, strFileNameWSH, iTimeOut, strFile, s
 		RunDownloadedScript01(tempFolder, strFileNameWSH, iTimeOut );
 		return 0;
 	}
+}
+
+/* ********************************************************
+'
+' ScriptDownlRunIfChecked03( strURL , strFileNameWSH, strFile, strFolder )
+'
+' This Script Downloads WshScript file from strURL Path and
+' Execute it with Current Privileges
+' if strFile or strFolder is Present on Local Computer
+'
+' PARAMETERS:	strURL an URL Path to Download
+' 				strFileNameWSH - Name of Exe File
+'				strFile is a Checked File. May be Empty String
+'				strFolder is a checked Folder. Must Not be Empty
+' RETURNS:		0 if Success Download and Run
+'				1 if File or Folder is Checked
+'				2 if Error Occur
+'
+' *********************************************************/
+function ScriptDownlRunIfChecked03( strURL, strFileNameWSH, strFile, strFolder ){
+	var iFlag, isFlag;
+	var isFileEmpty, fso;
+	// Set fso
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	var tempFolder;
+	// Get Temp Folder Name
+	tempFolder = getTempEnviron();
+	// Check if strFolder is Empty of TEMP Directory not Assigned
+	if( strFolder === "" || tempFolder === "" ) {
+		return 2;
+	}
+	// Check if File Empty
+	if( strFile === "" ) {
+		isFileEmpty = 1;
+	}
+	else {
+		isFileEmpty = 0;
+	}
+	isFlag = CheckIfFileOrFolderExist( strFile, strFolder );
+	// Checck if File or Folder Exists
+	if( isFileEmpty ==1 && isFlag < 2 || isFileEmpty == 0 && isFlag == 0 ) {
+		return 1;
+	}
+	else {
+		iFlag = UploadFilesFromInt( strFileNameWSH, strURL, tempFolder );
+		if( iFlag != 0 ) return 2;
+		RunDownloadedScript03(tempFolder, strFileNameWSH );
+		return 0;
+	}
+}
+
+/******************************************************************************
+'
+' RunDownloadedExe01(strPath, strVBS, constOpt, intTimeOut )
+' This Function Run Hidden a strVBS File
+' with Command "strPath & "\" & strVBS " and Arguments constOpt
+'
+' PARAMETERS:   strPath -- The Path to strVBS
+'               strVBS -- a VBS File with instructions
+'               (Windows Scripts Shell)
+'				intTimeOut -- Estimated Time for Running (ms)
+'
+' RETURNS:      NONE
+'
+******************************************************************************/
+
+function RunDownloadedExe01(strPath, strVBS, constOpt, intTimeOut ){
+	var strValue, shApp;
+	// Define ActiveX Object
+	shApp = new ActiveXObject("Shell.Application");
+	// Set Exe Command Arguments
+	strValue = "\"" + strPath + "\\" + strVBS + "\"";
+	// Run exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
+	shApp.ShellExecute( strValue, constOpt, strPath, "runas", 0 );
+	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
+	// shApp.ShellExecute( strValue, constOpt, strPath, "runas", 0 );
+	//    setTimeout( DoNothing, intTimeOut );
+	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
+	WScript.Sleep(intTimeOut);
+}
+
+/******************************************************************************
+'
+' RunDownloadedExe02(strPath, strVBS, constOpt, intTimeOut )
+' This Function Run a strVBS File
+' with Command "strPath & "\" & strVBS " and Arguments constOpt
+'
+' PARAMETERS:   strPath -- The Path to strVBS
+'               strVBS -- a VBS File with instructions
+'               (Windows Scripts Shell)
+'				intTimeOut -- Estimated Time for Running (ms)
+'
+' RETURNS:      NONE
+'
+******************************************************************************/
+
+function RunDownloadedExe02(strPath, strVBS, constOpt, intTimeOut ){
+	var strValue, shApp;
+	// Define ActiveX Object
+	shApp = new ActiveXObject("Shell.Application");
+	// Set Exe Command Arguments
+	strValue = "\"" + strPath + "\\" + strVBS + "\"";
+	// Run exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
+	//shApp.ShellExecute( strValue, constOpt, strPath, "runas", 0 );
+	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
+	shApp.ShellExecute( strValue, constOpt, strPath, "runas", 0 );
+	//    setTimeout( DoNothing, intTimeOut );
+	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
+	WScript.Sleep(intTimeOut);
+}
+
+/******************************************************************************
+'
+' RunDownloadedExe03(strPath, strVBS, constOpt )
+' This Function Run a strVBS File
+' with Command "strPath & "\" & strVBS " and Arguments constOpt
+'
+' PARAMETERS:   strPath -- The Path to strVBS
+'               strVBS -- a VBS File with instructions
+'               (Windows Scripts Shell)
+'				intTimeOut -- Estimated Time for Running (ms)
+'
+' RETURNS:      NONE
+'
+******************************************************************************/
+
+function RunDownloadedExe03(strPath, strVBS, constOpt ){
+	var strValue, wsh;
+	// Define ActiveX Object
+	wsh = new ActiveXObject("WScript.Shell");
+	// Set Exe Command Arguments
+	strValue = "\"" + strPath + "\\" + strVBS + "\" " + constOpt;
+	// Run exe with Curren Privileges at Invisible Mode (0)
+	wsh.Run( strValue, 0, true );
+}
+
+/* ********************************************************
+'
+' ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt)
+'
+' This Script Downloads Exe file from strURL Path and
+' Execute it with Script TimeOut in iTimeOut ms
+'
+' PARAMETERS:	strURL - URL Path to Download
+'				iTimeOut - Wait to End Execution of the File
+' 				strFileNameExe - Name of Exe File
+'				constOpt - Options of Exe File
+' RETURNS:		0 if Success Download and Run
+'				1 if Error Occur
+'
+' *********************************************************/
+function ExeDownlRun01( strURL, iTimeOut, strFileNameExe, constOpt){
+	var iFlag;
+	var tempFolder;
+	// Get Temp Folder Name
+	tempFolder = getTempEnviron();
+	// Check if strFolder is Empty of TEMP Directory not Assigned
+	if( tempFolder === "" ) {
+		return 1;
+	}
+	iFlag = UploadFilesFromInt( strFileNameExe, strURL, tempFolder );
+	if( iFlag != 0 ) return 1;
+	RunDownloadedExe01( tempFolder, strFileNameExe, constOpt, iTimeOut );
+	return 0;
+}
+
+/* ********************************************************
+'
+' ExeDownlRun03( strURL, strFileNameExe, constOpt)
+'
+' This Script Downloads Exe file from strURL Path and
+' Execute it with Script TimeOut in iTimeOut ms
+'
+' PARAMETERS:	strURL - URL Path to Download
+'				iTimeOut - Wait to End Execution of the File
+' 				strFileNameExe - Name of Exe File
+'				constOpt - Options of Exe File
+' RETURNS:		0 if Success Download and Run
+'				1 if Error Occur
+'
+' *********************************************************/
+function ExeDownlRun03( strURL, strFileNameExe, constOpt){
+	var iFlag;
+	var tempFolder;
+	// Get Temp Folder Name
+	tempFolder = getTempEnviron();
+	// Check if strFolder is Empty of TEMP Directory not Assigned
+	if( tempFolder === "" ) {
+		return 1;
+	}
+	iFlag = UploadFilesFromInt( strFileNameExe, strURL, tempFolder );
+	if( iFlag != 0 ) return 1;
+	RunDownloadedExe03( tempFolder, strFileNameExe, constOpt );
+	return 0;
 }
 
 /* ********************************************************
@@ -169,184 +488,55 @@ function ExeDownlRunIfChecked00( strURL, iTimeOut, strFileNameExe, constOpt, str
 	}
 }
 
-/******************************************************************************
-'
-' RunDownloadedExe02(strPath, strVBS, constOpt, intTimeOut )
-' This Function Run a strVBS File
-' with Command "strPath & "\" & strVBS " and Arguments constOpt
-'
-' PARAMETERS:   strPath -- The Path to strVBS
-'               strVBS -- a VBS File with instructions
-'               (Windows Scripts Shell)
-'				intTimeOut -- Estimated Time for Running (ms)
-'
-' RETURNS:      NONE
-'
-******************************************************************************/
-
-function RunDownloadedExe02(strPath, strVBS, constOpt, intTimeOut ){
-	var strValue, shApp;
-	// Define ActiveX Object
-	shApp = new ActiveXObject("Shell.Application");
-	// Set Exe Command Arguments
-	strValue = strPath + "\\" + strVBS;
-	// Run exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
-	//shApp.ShellExecute( strValue, constOpt, strPath, "runas", 0 );
-	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
-	shApp.ShellExecute( strValue, constOpt, strPath, "runas", 1 );
-	//    setTimeout( DoNothing, intTimeOut );
-	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
-	WScript.Sleep(intTimeOut);
-}
-
-/******************************************************************************
-'
-' RunDownloadedScript02( strPath, strVBS )
-' This Function Run a strVBS File
-' with Command "cscript //NoLogo " & strPath & "\" & strVBS
-'
-' PARAMETERS:   strPath -- The Path to strVBS
-'               strVBS -- a VBS File with instructions
-'               (Windows Scripts Shell)
-'				intTimeOut -- Estimated Time for Running (ms)
-'
-' RETURNS:      0 if Success
-'				1 if Path not Found
-'
-******************************************************************************/
-
-function RunDownloadedScript02(strPath, strVBS, intTimeOut ){
-    var constRun_VBS, constOpt;
-    // Define Windows Scripts Options
-    constRun_VBS = "//Nologo ";
-    // Define VBS Script Options (Empty)
-    constOpt = "";
-    var strValue, shApp, fso, wsh, envProc, pathCMD;
-    // Define ActiveX Object
-    shApp = new ActiveXObject("Shell.Application");
-    fso = new ActiveXObject("Scripting.FileSystemObject");
-    wsh = new ActiveXObject("WScript.Shell");
-    envProc = wsh.Environment("PROCESS");
-    pathCMD = envProc("SystemRoot") + "\\System32";
-    // Check Paths
-    if (!fso.FileExists(pathCMD + "\\cscript.exe")) {return 1};
-    if (!fso.FileExists(strPath + "\\" + strVBS)) {return 1};
-    // Set Cscript Command Arguments
-    strValue = constRun_VBS +"\"" + strPath + "\\" + strVBS + "\"" + constOpt;
-    // Run cscript.exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
-    //shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "runas", 0 );
-    // Run cscript.exe with Normal Privileges ("") at Normal Mode (1), with working Diretory strPath
-    shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "", 1 );
-//    setTimeout( DoNothing, intTimeOut );
-    // Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
-    WScript.Sleep(intTimeOut);
-    return 0;
-}
-
-/******************************************************************************
-'
-' RunDownloadedExe01(strPath, strVBS, constOpt, intTimeOut )
-' This Function Run Hidden a strVBS File
-' with Command "strPath & "\" & strVBS " and Arguments constOpt
-'
-' PARAMETERS:   strPath -- The Path to strVBS
-'               strVBS -- a VBS File with instructions
-'               (Windows Scripts Shell)
-'				intTimeOut -- Estimated Time for Running (ms)
-'
-' RETURNS:      NONE
-'
-******************************************************************************/
-
-function RunDownloadedExe01(strPath, strVBS, constOpt, intTimeOut ){
-	var strValue, shApp;
-	// Define ActiveX Object
-	shApp = new ActiveXObject("Shell.Application");
-	// Set Exe Command Arguments
-	strValue = strPath + "\\" + strVBS;
-	// Run exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
-	shApp.ShellExecute( strValue, constOpt, strPath, "runas", 0 );
-	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
-	// shApp.ShellExecute( strValue, constOpt, strPath, "runas", 1 );
-	//    setTimeout( DoNothing, intTimeOut );
-	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
-	WScript.Sleep(intTimeOut);
-}
-
-/******************************************************************************
-'
-' RunDownloadedScript01( strPath, strVBS, intTimeOut )
-' This Function Run Hidden a strVBS File
-' with Command "cscript //NoLogo " & strPath & "\" & strVBS
-'
-' PARAMETERS:   strPath -- The Path to strVBS
-'               strVBS -- a VBS File with instructions
-'               (Windows Scripts Shell)
-'				intTimeOut -- Estimated Time for Running (ms)
-'
-' RETURNS:      0 if Success
-'				1 if Path not Found
-'
-******************************************************************************/
-
-function RunDownloadedScript01(strPath, strVBS, intTimeOut ){
-    var constRun_VBS, constOpt;
-    // Define Windows Scripts Options
-    constRun_VBS = "//Nologo ";
-    // Define VBS Script Options (Empty)
-    constOpt = "";
-    var strValue, shApp, fso, wsh, envProc, pathCMD;
-    // Define ActiveX Object
-    shApp = new ActiveXObject("Shell.Application");
-    fso = new ActiveXObject("Scripting.FileSystemObject");
-    wsh = new ActiveXObject("WScript.Shell");
-    envProc = wsh.Environment("PROCESS");
-    pathCMD = envProc("SystemRoot") + "\\System32";
-    // Check Paths
-    if (!fso.FileExists(pathCMD + "\\cscript.exe")) {return 1};
-    if (!fso.FileExists(strPath + "\\" + strVBS)) {return 1};
-    // Set Cscript Command Arguments
-    strValue = constRun_VBS +"\"" + strPath + "\\" + strVBS + "\"" + constOpt;
-    // Run cscript.exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
-    shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "runas", 0 );
-    // Run cscript.exe with Normal Privileges ("") at Normal Mode (1), with working Diretory strPath
-    // shApp.ShellExecute( pathCMD + "\\cscript.exe", strValue, strPath, "", 1 );
-//    setTimeout( DoNothing, intTimeOut );
-    // Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
-    WScript.Sleep(intTimeOut);
-    return 0;
-}
-
-
 /* ********************************************************
 '
-' CmdDownlRun01( strURL , strFileNameCMD, iTimeOut )
+' ExeDownlRunIfChecked03( strURL, strFileNameExe, constOpt, strFile, strFolder )
 '
-' This Script Downloads CMD file from strURL Path and
-' Execute Hidden it with Script TimeOut in iTimeOut ms
+' This Script Downloads Exe file from strURL Path and
+' Execute it with Curren Privileges
+' if strFile or strFolder is Present on Local Computer
 '
-' PARAMETERS:	strURL an URL Path to Download
-' 				strFileNameCMD - Name of CMD File
-'				iTimeOut is Wait to End Execution of the File
+' PARAMETERS:	strURL - URL Path to Download
+' 				strFileNameExe - Name of Exe File
+'				constOpt - Options of Exe File
+'				strFile is a Checked File. May be Empty String
+'				strFolder is a checked Folder. Must Not be Empty
 ' RETURNS:		0 if Success Download and Run
-'				1 if Error Occur
+'				1 if File or Folder is Checked
+'				2 if Error Occur
 '
 ' *********************************************************/
-function CmdDownlRun01( strURL, strFileNameCMD, iTimeOut ){
-	var iFlag;
+function ExeDownlRunIfChecked03( strURL, strFileNameExe, constOpt, strFile, strFolder ){
+	var iFlag, isFlag;
+	var isFileEmpty, fso;
+	// Set fso
+	fso = new ActiveXObject("Scripting.FileSystemObject");
 	var tempFolder;
 	// Get Temp Folder Name
 	tempFolder = getTempEnviron();
 	// Check if strFolder is Empty of TEMP Directory not Assigned
-	if( tempFolder === "" ) {
+	if( strFolder === "" || tempFolder === "" ) {
+		return 2;
+	}
+	// Check if File Empty
+	if( strFile === "" ) {
+		isFileEmpty = 1;
+	}
+	else {
+		isFileEmpty = 0;
+	}
+	isFlag = CheckIfFileOrFolderExist( strFile, strFolder );
+	// Checck if File or Folder Exists
+	if( isFileEmpty ==1 && isFlag < 2 || isFileEmpty == 0 && isFlag == 0 ) {
 		return 1;
 	}
-	iFlag = UploadFilesFromInt( strFileNameCMD, strURL, tempFolder );
-	if( iFlag != 0 ) return 1;
-	RunDownloadedCMD01(tempFolder, strFileNameCMD, iTimeOut );
-	return 0;
+	else {
+		iFlag = UploadFilesFromInt( strFileNameExe, strURL, tempFolder );
+		if( iFlag != 0 ) return 2;
+		RunDownloadedExe03( tempFolder, strFileNameExe, constOpt );
+		return 0;
+	}
 }
-
 
 /******************************************************************************
 '
@@ -390,6 +580,99 @@ function RunDownloadedCMD01( strPath, strCMD, intTimeOut ){
     return 0;
 }
 
+/******************************************************************************
+'
+' RunDownloadedCMD03( strPath, strCMD )
+' This Function Run Hidden a strCMD File
+' with Command "cmd /c " & strPath & "\" & strCMD
+'
+' PARAMETERS:   strPath -- The Path to strCMD
+'               strVBS -- a CMD File with instructions
+'               (Windows Command Shell)
+'
+' RETURNS:      0 if Success
+'				1 if Path not Found
+'
+******************************************************************************/
+
+function RunDownloadedCMD03( strPath, strCMD ){
+    var constRun_CMD, constOpt;
+    // Define Windows Scripts Options
+    constRun_CMD = "/c ";
+    var strValue, fso, wsh, envProc, pathCMD, comSpec;
+    // Define ActiveX Object
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    envProc = wsh.Environment("PROCESS");
+    comSpec = envProc("COMSPEC");
+    // Check Paths
+    if (!fso.FileExists(comSpec)) {return 1};
+    if (!fso.FileExists(strPath + "\\" + strCMD)) {return 1};
+    // Set Cscript Command Arguments
+    strValue = "\"" + comSpec + "\" " + constRun_CMD +"\"" + strPath + "\\" + strCMD + "\"";
+	wsh.Run(strValue, 0, true );
+    return 0;
+}
+
+
+/* ********************************************************
+'
+' CmdDownlRun01( strURL , strFileNameCMD, iTimeOut )
+'
+' This Script Downloads CMD file from strURL Path and
+' Execute Hidden it with Script TimeOut in iTimeOut ms
+'
+' PARAMETERS:	strURL an URL Path to Download
+' 				strFileNameCMD - Name of CMD File
+'				iTimeOut is Wait to End Execution of the File
+' RETURNS:		0 if Success Download and Run
+'				1 if Error Occur
+'
+' *********************************************************/
+function CmdDownlRun01( strURL, strFileNameCMD, iTimeOut ){
+	var iFlag;
+	var tempFolder;
+	// Get Temp Folder Name
+	tempFolder = getTempEnviron();
+	// Check if strFolder is Empty of TEMP Directory not Assigned
+	if( tempFolder === "" ) {
+		return 1;
+	}
+	iFlag = UploadFilesFromInt( strFileNameCMD, strURL, tempFolder );
+	if( iFlag != 0 ) return 1;
+	RunDownloadedCMD01(tempFolder, strFileNameCMD, iTimeOut );
+	return 0;
+}
+
+
+/* ********************************************************
+'
+' CmdDownlRun03( strURL , strFileNameCMD )
+'
+' This Script Downloads CMD file from strURL Path and
+' Execute Hidden it with Current Privileges
+'
+' PARAMETERS:	strURL an URL Path to Download
+' 				strFileNameCMD - Name of CMD File
+' RETURNS:		0 if Success Download and Run
+'				1 if Error Occur
+'
+' *********************************************************/
+function CmdDownlRun03( strURL, strFileNameCMD ){
+	var iFlag;
+	var tempFolder;
+	// Get Temp Folder Name
+	tempFolder = getTempEnviron();
+	// Check if strFolder is Empty of TEMP Directory not Assigned
+	if( tempFolder === "" ) {
+		return 1;
+	}
+	iFlag = UploadFilesFromInt( strFileNameCMD, strURL, tempFolder );
+	if( iFlag != 0 ) return 1;
+	RunDownloadedCMD03(tempFolder, strFileNameCMD);
+	return 0;
+}
+
 
 /***********************************************************
 '
@@ -400,8 +683,8 @@ function RunDownloadedCMD01( strPath, strCMD, intTimeOut ){
 ' PARAMETERS:	strFile - a checcking file
 '		strFolder - a full path to checking folder
 ' RETURNS:	0 if File and Folder are Present
-'		1 if Folder not File is Present
-'		2 if File or Folder areh'n Present
+'			1 if Folder not File is Present
+'			2 if File or Folder areh'n Present
 ' *********************************************************/
 function CheckIfFileOrFolderExist( strFile, strFolder ) {
 	var fso, strFullName;
@@ -564,7 +847,7 @@ function RunRestartImmediately(){
 	// Run exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
 	shApp.ShellExecute( strValue, constOpt, "", "runas", 0 );
 	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
-	// shApp.ShellExecute( strValue, constOpt, "", "runas", 1 );
+	// shApp.ShellExecute( strValue, constOpt, "", "runas", 0 );
 	//    setTimeout( DoNothing, intTimeOut );
 	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
 }
@@ -594,9 +877,36 @@ function RunStopImmediately(){
 	// Run exe with Elevated Privileges (runas) at Invisible Mode (0), with working Diretory strPath
 	shApp.ShellExecute( strValue, constOpt, "", "runas", 0 );
 	// Run exe with Elevated Privileges ("runas") at Normal Mode (1), with working Diretory strPath
-	// shApp.ShellExecute( strValue, constOpt, "", "runas", 1 );
+	// shApp.ShellExecute( strValue, constOpt, "", "runas", 0 );
 	//    setTimeout( DoNothing, intTimeOut );
 	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
 }
 
+/* ********************************************************
+'
+' TEST Run echo Files
+' This Script Tests all Echo files for Correct
+' Download and Execute it
+'
+' *********************************************************/
+function Test_Echo_Files(){
+	var cmdEcho, exeEcho, wsfEcho;
+	var strURLPath, iTimeOut;
+	strURLPath = "http://ware.tuneserv.ru/Scripts/LIB-TEST/";
+	cmdEcho = "echo.bat";
+	exeEcho = "HelloWorld01.exe";
+	wsfEcho = "echo.wsf";
+	iTimeOut = 30000; // 30 sec
+	var iFlag;
+	//iFlag = ScriptDownlRun01( strURLPath, wsfEcho, iTimeOut );
+	//iFlag = ExeDownlRun01( strURLPath, iTimeOut, exeEcho, "" );
+	//iFlag = CmdDownlRun01( strURLPath, cmdEcho, iTimeOut );
+	//iFlag = ScriptDownlRun03( strURLPath, wsfEcho );
+	//iFlag = ExeDownlRun03( strURLPath, exeEcho, "" );
+	//iFlag = CmdDownlRun03( strURLPath, cmdEcho );
+	//iFlag = ScriptDownlRunIfChecked00( strURLPath, wsfEcho, iTimeOut, "", "C:\\WINDOWS\\System3");
+	//iFlag = ExeDownlRunIfChecked00( strURLPath, iTimeOut, exeEcho, "", "", "C:\\WINDOWS\\System3");
+	//iFlag = ScriptDownlRunIfChecked03( strURLPath, wsfEcho, "", "C:\\WINDOWS\\System3");
+	//iFlag = ExeDownlRunIfChecked03( strURLPath, exeEcho, "", "", "C:\\WINDOWS\\System3");
+}
 

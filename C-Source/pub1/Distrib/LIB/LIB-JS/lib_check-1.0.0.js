@@ -30,7 +30,31 @@ function ChecksIfChocolateyInstalled () {
 	if( iFlag == 0 )
 		return iFlag;
 	else {
-		iFlag = ChocolateyInstall ();
+		return 1;
+	}
+}
+
+/* *********************************************************
+'
+' ChecksIfChocolateyInstalled_WinNew
+'
+' This function Checks If Chocolatey Packets Installed and Install it if no
+'
+' PPARAMETERS:	NONE
+' RETURNS:	0 if Chocolatey Installed
+'		    1 if not Installed
+'			2 if Installation Error Occur
+'
+' *********************************************************/
+function ChecksIfChocolateyInstalled_WinNew () {
+	// body... 
+	var strVar, iFlag;
+	strVar = "ChocolateyInstall";
+	iFlag = CheckIfFolderVariableDefined (strVar);
+	if( iFlag == 0 )
+		return iFlag;
+	else {
+		iFlag = ChocolateyInstall_WinNew ();
 		if( iFlag == 1 )
 			return 2;
 		else
@@ -213,7 +237,7 @@ function NIT_ShedulerReinstall() {
 '		    	2 if Error Occur
 '
 ' *********************************************************/
-function NIT_RevMonReinstall() {
+function NIT_RevMonReinstall_001_Old() {
 	// body... 
 	var iFlag;
 	iFlag = ChecksIfChocolateyInstalled ()
@@ -228,3 +252,52 @@ function NIT_RevMonReinstall() {
 }
 
 
+/* ********************************************************
+ *
+ * NIT_CheckIfRevMonInstall
+ *
+ * This Function Checks if Reverse Monitoring 
+ * Packet is Installed
+ *
+ * PPARAMETERS:	NONE
+ * RETURN:		0 if Reverse Monitoring is Installed
+ *				1 if Reverse Monitoring is not Installed
+ *		    	2 if Error Occur
+ *
+* *********************************************************/
+function NIT_CheckIfRevMonInstall () {
+	// body... 
+	var iFlagCmd, iFlagXML;
+	var strVar, iFlag, wsh, envProc, fso;
+	// Define ActiveX Variables
+    wsh = new ActiveXObject("WScript.Shell");
+    envProc = wsh.Environment("PROCESS");
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+	// Define Variables
+	//strVar = "PUB1";
+	//iFlag = CheckIfFolderVariableDefined (strVar);
+	//if( iFlag != 0 ) return 1;
+	var strFolder, strCmd, strXML;
+	strFolder = "C:\\pub1\\Util";
+	iFlag = 0;
+	var bFlag1;
+	strCmd =  "ReverseMonitoring.cmd";
+	strXML = "ReverseMonitoring_Quart.xml";
+	// Check if strCmd Not Installed
+	iFlagCmd = CheckIfFileOrFolderExist( strCmd, strFolder );
+	//WScript.Echo("iFlagCmd = " + iFlagCmd);
+	if( iFlagCmd > 0  ){
+		return 1;
+	}
+	iFlagXML = CheckIfFileOrFolderExist( strXML, strFolder )
+	//WScript.Echo("iFlagXML = " + iFlagXML);
+	if( iFlagXML == 2 ){
+		return 1;
+	}
+	// If the Directory Exists but the XML Task not Created
+	else if( iFlagXML == 1 ){
+		return 2;
+	}
+	else
+		return 0;
+}
