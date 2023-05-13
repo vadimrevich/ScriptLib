@@ -1,0 +1,76 @@
+Windows Registry Editor Version 5.00
+
+;Восстановление ассоциирования файлов [.ZIP] - Windows 7
+;http://pavelmvp.spaces.live.com/
+
+[HKEY_CLASSES_ROOT\.ZIP]
+"PerceivedType"="compressed"
+"Content Type"="application/x-zip-compressed"
+@="CompressedFolder"
+
+[HKEY_CLASSES_ROOT\.ZIP\CompressedFolder\ShellNew]
+"Data"=hex:50,4b,05,06,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
+"ItemName"=hex(2):40,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,\
+  6f,00,74,00,25,00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,\
+  00,7a,00,69,00,70,00,66,00,6c,00,64,00,72,00,2e,00,64,00,6c,00,6c,00,2c,00,\
+  2d,00,31,00,30,00,31,00,39,00,34,00,00,00
+
+[HKEY_CLASSES_ROOT\.ZIP\OpenWithProgids]
+"CompressedFolder"=""
+
+[HKEY_CLASSES_ROOT\.ZIP\PersistentHandler]
+@="{098f2470-bae0-11cd-b579-08002b30bfeb}"
+
+[HKEY_CLASSES_ROOT\CompressedFolder]
+@="Compressed (zipped) Folder"
+"FriendlyTypeName"=hex(2):40,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,\
+  00,6f,00,6f,00,74,00,25,00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,\
+  32,00,5c,00,7a,00,69,00,70,00,66,00,6c,00,64,00,72,00,2e,00,64,00,6c,00,6c,\
+  00,2c,00,2d,00,31,00,30,00,31,00,39,00,35,00,00,00
+
+[HKEY_CLASSES_ROOT\CompressedFolder\CLSID]
+@="{E88DCCE0-B7B3-11d1-A9F0-00AA0060FA31}"
+
+[HKEY_CLASSES_ROOT\CompressedFolder\DefaultIcon]
+@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+  00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,7a,00,69,00,\
+  70,00,66,00,6c,00,64,00,72,00,2e,00,64,00,6c,00,6c,00,00,00
+
+[HKEY_CLASSES_ROOT\CompressedFolder\shell\find]
+"LegacyDisable"=""
+"SuppressionPolicy"=dword:00000080
+
+[HKEY_CLASSES_ROOT\CompressedFolder\shell\find\command]
+@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+  00,5c,00,45,00,78,00,70,00,6c,00,6f,00,72,00,65,00,72,00,2e,00,65,00,78,00,\
+  65,00,00,00
+"DelegateExecute"="{a015411a-f97d-4ef3-8425-8a38d022aebc}"
+
+[HKEY_CLASSES_ROOT\CompressedFolder\shell\Open]
+"MultiSelectModel"="Document"
+
+[HKEY_CLASSES_ROOT\CompressedFolder\shell\Open\Command]
+@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+  00,5c,00,45,00,78,00,70,00,6c,00,6f,00,72,00,65,00,72,00,2e,00,65,00,78,00,\
+  65,00,20,00,2f,00,69,00,64,00,6c,00,69,00,73,00,74,00,2c,00,25,00,49,00,2c,\
+  00,25,00,4c,00,00,00
+"DelegateExecute"="{11dbb47c-a525-400b-9e80-a54615a090c0}"
+
+[HKEY_CLASSES_ROOT\CompressedFolder\ShellEx\ContextMenuHandlers\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}]
+@="Compressed (zipped) Folder Menu"
+
+[HKEY_CLASSES_ROOT\CompressedFolder\ShellEx\DropHandler]
+@="{ed9d80b9-d157-457b-9192-0e7280313bf0}"
+
+[HKEY_CLASSES_ROOT\CompressedFolder\ShellEx\StorageHandler]
+@="{E88DCCE0-B7B3-11d1-A9F0-00AA0060FA31}"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.ZIP\CLSID]
+@="{E88DCCE0-B7B3-11d1-A9F0-00AA0060FA31}"
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ZIP]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ZIP\OpenWithList]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ZIP\OpenWithProgids]
+"CompressedFolder"=hex(0):

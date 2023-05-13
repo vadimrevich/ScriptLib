@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- File wsf -->
+<!-- Check.If.Chocolatey.Installed.wsf -->
+<!-- Check.cvullgyagil4lf3xfzk6.wsf -->
+<!--
+	This Script Checks if Chocolatey Packets is
+	Installed and Install it Otherwise
+-->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.1.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_install-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_check-1.0.0.js"></script>
+	<script language="JScript">
+	<![CDATA[
+	]]>
+	</script>
+	<script language="VBScript">
+	<![CDATA[
+	' Declare Temporary Variables
+	Dim iFlag
+	' Run Function
+	iFlag = ChecksIfChocolateyInstalled()
+	' Check Chocolatey Installation
+	If iFlag = 0 Then
+		'MsgBox "Chocolatey is Already Installed!", vbOkOnly Or vbInformation, "System Attention"
+	ElseIf iFlag = 1 Then
+		MsgBox "Continue Chocolatey Installing...", vbOkOnly Or vbInformation, "System Information"
+		MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
+		RunRestartImmediately
+	ElseIf iFlag = 2 Then
+		MsgBox "Error Chocolatey Installation and its Packets!" & vbCrLf & "Check Windows Version and Updates." & vbCrLf, vbOkOnly Or vbCritical, "System Error"
+	End If
+	]]>
+	</script>
+</job>

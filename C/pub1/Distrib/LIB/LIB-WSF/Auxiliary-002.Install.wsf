@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- File wsf -->
+<!-- Auxiliary-002.Install.wsf -->
+<!--
+ * This File (Re)Install Auxiliary Modules
+ * for Windows Computers via Chocolatey, etc.
+-->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.1.0.js"></script>
+	<script language="JScript">
+	<![CDATA[
+	/**********************************************************
+	 *
+	 * NIT_AuxiliaryInstall-002
+	 * This Function Install Auxiliary Modules
+	 * for Windows Computers
+	 *
+	 * This Function is Part of LIBScript Project and 
+	 * must be Start after NIT_SUDl and Chocolatey Install
+	 * This Function is Container of auxiliary-002.cmd File
+	 * 
+	 * GLOBAL VARIABLES:	iTimeOut - TimeOut (ms)
+	 *			iTimeOut0 - TimeOut (ms) jf Stamp
+	 *
+	 * PARAMETERS:	NONE
+	 * RETURNS:		NONE
+	 *
+	 ***********************************************************/
+	function NIT_AuxiliaryInstall() {
+		var strPath, strFileName, strStamp;
+		var iFlag, iFlag0; // Temprorary Integer Flag
+		strPath = "C:\\pub1\\Distrib\\LIB\\BAT";
+		strFileName = "auxiliary-002.cmd";
+		strStamp = "Install.St.cmd";
+		iFlag = RunDownloadedCMD01(strPath, strFileName, iTimeOut);
+		if(iFlag == 0) iFlag0 = RunDownloadedCMD01(strPath, strStamp, iTimeOut0);
+		return iFlag;
+	}
+	]]>
+	</script>
+	<script language="JScript">
+	<![CDATA[
+	var iTimeOut, iTimeOut0;
+	iTimeOut = 1200000; // (20 min.)
+	iTimeOut0 = 10; // (10 ms)
+	]]>
+	</script>
+	<script language="VBScript">
+	<![CDATA[
+	Dim iFlag
+	iFlag = NIT_AuxiliaryInstall()
+	If iFlag = 0 Then
+	MsgBox "Installation of Auxiliary Packets is been Success!", vbOkOnly Or vbInformation, "System Attention"
+	ElseIf iFlag = 1 Then
+	MsgBox "Error: Instalation of Packets is not been Success!" & vbCrLf & "May be LIBScript Packet not Installed?", vbOkOnly Or vbCritical, "System Error"
+	'	MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
+	'	RunRestartImmediately
+	End If
+	]]>
+	</script>
+</job>

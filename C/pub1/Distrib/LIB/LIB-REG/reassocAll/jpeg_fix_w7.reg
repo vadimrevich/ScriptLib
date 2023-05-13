@@ -1,0 +1,104 @@
+Windows Registry Editor Version 5.00
+
+;Восстановление ассоциирования файлов [.JPE/JPEG/JPG] - Windows 7
+;http://pavelmvp.spaces.live.com/
+
+[HKEY_CLASSES_ROOT\.JPE]
+"Content Type"="image/jpeg"
+@="jpegfile"
+"PerceivedType"="image"
+
+[HKEY_CLASSES_ROOT\.JPE\OpenWithProgids]
+"jpegfile"=""
+
+[HKEY_CLASSES_ROOT\.JPE\PersistentHandler]
+@="{098f2470-bae0-11cd-b579-08002b30bfeb}"
+
+[HKEY_CLASSES_ROOT\.JPEG]
+"Content Type"="image/jpeg"
+@="jpegfile"
+"PerceivedType"="image"
+
+[HKEY_CLASSES_ROOT\.JPEG\OpenWithProgids]
+"jpegfile"=""
+
+[HKEY_CLASSES_ROOT\.JPEG\PersistentHandler]
+@="{098f2470-bae0-11cd-b579-08002b30bfeb}"
+
+[HKEY_CLASSES_ROOT\.JPG]
+"Content Type"="image/jpeg"
+@="jpegfile"
+"PerceivedType"="image"
+
+[HKEY_CLASSES_ROOT\.JPG\OpenWithProgids]
+"jpegfile"=""
+
+[HKEY_CLASSES_ROOT\.JPG\PersistentHandler]
+@="{098f2470-bae0-11cd-b579-08002b30bfeb}"
+
+[HKEY_CLASSES_ROOT\jpegfile]
+@="JPEG Image"
+"EditFlags"=dword:00010000
+"FriendlyTypeName"=hex(2):40,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,\
+  00,6f,00,6f,00,74,00,25,00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,\
+  32,00,5c,00,73,00,68,00,65,00,6c,00,6c,00,33,00,32,00,2e,00,64,00,6c,00,6c,\
+  00,2c,00,2d,00,33,00,30,00,35,00,39,00,36,00,00,00
+"ImageOptionFlags"=dword:00000001
+
+[HKEY_CLASSES_ROOT\jpegfile\CLSID]
+@="{25336920-03F9-11cf-8FD0-00AA00686F13}"
+
+[HKEY_CLASSES_ROOT\jpegfile\DefaultIcon]
+@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+  00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,69,00,6d,00,\
+  61,00,67,00,65,00,72,00,65,00,73,00,2e,00,64,00,6c,00,6c,00,2c,00,2d,00,37,\
+  00,32,00,00,00
+
+[HKEY_CLASSES_ROOT\jpegfile\shell\open]
+"MuiVerb"=hex(2):40,00,25,00,50,00,72,00,6f,00,67,00,72,00,61,00,6d,00,46,00,\
+  69,00,6c,00,65,00,73,00,25,00,5c,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,\
+  00,20,00,50,00,68,00,6f,00,74,00,6f,00,20,00,56,00,69,00,65,00,77,00,65,00,\
+  72,00,5c,00,70,00,68,00,6f,00,74,00,6f,00,76,00,69,00,65,00,77,00,65,00,72,\
+  00,2e,00,64,00,6c,00,6c,00,2c,00,2d,00,33,00,30,00,34,00,33,00,00,00
+
+[HKEY_CLASSES_ROOT\jpegfile\shell\open\command]
+@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+  00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,72,00,75,00,\
+  6e,00,64,00,6c,00,6c,00,33,00,32,00,2e,00,65,00,78,00,65,00,20,00,22,00,25,\
+  00,50,00,72,00,6f,00,67,00,72,00,61,00,6d,00,46,00,69,00,6c,00,65,00,73,00,\
+  25,00,5c,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,20,00,50,00,68,00,6f,\
+  00,74,00,6f,00,20,00,56,00,69,00,65,00,77,00,65,00,72,00,5c,00,50,00,68,00,\
+  6f,00,74,00,6f,00,56,00,69,00,65,00,77,00,65,00,72,00,2e,00,64,00,6c,00,6c,\
+  00,22,00,2c,00,20,00,49,00,6d,00,61,00,67,00,65,00,56,00,69,00,65,00,77,00,\
+  5f,00,46,00,75,00,6c,00,6c,00,73,00,63,00,72,00,65,00,65,00,6e,00,20,00,25,\
+  00,31,00,00,00
+
+[HKEY_CLASSES_ROOT\jpegfile\shell\open\DropTarget]
+"Clsid"="{FFE2A43C-56B9-4bf5-9A79-CC6D4285608A}"
+
+[HKEY_CLASSES_ROOT\jpegfile\shell\printto\command]
+@=hex(2):22,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,\
+  00,25,00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,72,00,\
+  75,00,6e,00,64,00,6c,00,6c,00,33,00,32,00,2e,00,65,00,78,00,65,00,22,00,20,\
+  00,22,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,\
+  25,00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,73,00,68,\
+  00,69,00,6d,00,67,00,76,00,77,00,2e,00,64,00,6c,00,6c,00,22,00,2c,00,49,00,\
+  6d,00,61,00,67,00,65,00,56,00,69,00,65,00,77,00,5f,00,50,00,72,00,69,00,6e,\
+  00,74,00,54,00,6f,00,20,00,2f,00,70,00,74,00,20,00,22,00,25,00,31,00,22,00,\
+  20,00,22,00,25,00,32,00,22,00,20,00,22,00,25,00,33,00,22,00,20,00,22,00,25,\
+  00,34,00,22,00,00,00
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.JPE\UserChoice]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.JPEG\UserChoice]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.JPG\UserChoice]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.JPE\OpenWithProgids]
+"jpegfile"=hex(0):
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.JPEG\OpenWithProgids]
+"jpegfile"=hex(0):
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.JPG\OpenWithProgids]
+"jpegfile"=hex(0):

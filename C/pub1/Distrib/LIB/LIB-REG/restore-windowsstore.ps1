@@ -1,0 +1,1 @@
+Add-AppxPackage -register "C:\Program Files\WindowsApps\*Store*\AppxManifest.xml" -DisableDevelopmentMode

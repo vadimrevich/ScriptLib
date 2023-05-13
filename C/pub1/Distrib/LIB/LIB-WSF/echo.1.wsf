@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- File wsf -->
+<!-- echo.wsf -->
+<!--
+-->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript">
+	<![CDATA[
+	WScript.Echo("Первое сообщение");
+	]]>
+	</script>
+	<script language="VBScript">
+	<![CDATA[
+		WScript.Echo "Второе сообщение"
+	]]>
+	</script>
+</job>

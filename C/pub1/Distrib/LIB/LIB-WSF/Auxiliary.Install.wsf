@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- File wsf -->
+<!-- Auxiliary.Install.wsf -->
+<!--
+ * This File (Re)Install Auxiliary Modules
+ * for Windows Computers via Chocolatey, etc.
+-->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.1.0.js"></script>
+	<script language="JScript">
+	<![CDATA[
+	/**********************************************************
+	 *
+	 * NIT_AuxiliaryInstall-001
+	 * This Function Install Main Auxiliary Modules
+	 * for Windows Computers
+	 *
+	 * This Function is Part of LIBScript Project and 
+	 * must be Start after NIT_SUDl and Chocolatey Install
+	 * This Function is Container of auxiliary.cmd File
+	 * 
+	 * GLOBAL VARIABLES:	iTimeOut - TimeOut (ms)
+	 *
+	 * PARAMETERS:	NONE
+	 * RETURNS:		NONE
+	 *
+	 ***********************************************************/
+	function NIT_AuxiliaryInstall() {
+		var strPath, strFileName;
+		var iFlag; // Temprorary Integer Flag
+		strPath = "C:\\pub1\\Distrib\\LIB\\BAT";
+		strFileName = "auxiliary.cmd";
+		iFlag = RunDownloadedCMD01(strPath, strFileName, iTimeOut);
+		return iFlag;
+	}
+	]]>
+	</script>
+	<script language="JScript">
+	<![CDATA[
+	var iTimeOut;
+	iTimeOut = 60000;
+	]]>
+	</script>
+	<script language="VBScript">
+	<![CDATA[
+	Dim iFlag
+	iFlag = NIT_AuxiliaryInstall()
+	If iFlag = 0 Then
+	MsgBox "Installation of Auxiliary Packets is Planned!", vbOkOnly Or vbInformation, "System Attention"
+	ElseIf iFlag = 1 Then
+	MsgBox "Error: Instalation of Packets is not Planned!" & vbCrLf & "May be LIBScript Packet not Installed?", vbOkOnly Or vbCritical, "System Error"
+	'	MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
+	'	RunRestartImmediately
+	End If
+	]]>
+	</script>
+</job>
