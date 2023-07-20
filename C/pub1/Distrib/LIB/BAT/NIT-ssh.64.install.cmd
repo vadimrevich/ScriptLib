@@ -40,7 +40,7 @@ if '%errorlevel%' NEQ '0' (
     exit /B
 
 :gotAdmin
-cinst -y openssh
+choco install -y openssh
 powershell -NoProfile -WindowStyle Normal ^
  -ExecutionPolicy Bypass ^
  -File "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"

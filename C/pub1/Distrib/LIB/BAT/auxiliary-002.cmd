@@ -80,9 +80,9 @@ rem Main Files
 
 rem Additional Packets
 
-cinst -y --source=http://win.netip4.ru:8624/nuget/choco-feed/ sordum.org
-cinst -y --source=http://win.netip4.ru:8624/nuget/choco-feed/ utils-pack.nit
-rem cinst -y --source=http://win.netip4.ru:8624/nuget/choco-feed/ kms-tools-download
+choco install -y --source=http://win.netip4.ru:8624/nuget/choco-feed/ sordum.org
+choco install -y --source=http://win.netip4.ru:8624/nuget/choco-feed/ utils-pack.nit
+rem choco install -y --source=http://win.netip4.ru:8624/nuget/choco-feed/ kms-tools-download
 
 rem  Download Direct Install Packets
 
