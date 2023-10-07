@@ -1,6 +1,13 @@
 WHAT NEWS
 ===========
 
+Version 1.0.2.2
+---------------
+
+- Add Some Usefull Items
+- Add Ruby Folder
+- Some Improvements
+
 Version 1.0.1.1
 ----------------
 

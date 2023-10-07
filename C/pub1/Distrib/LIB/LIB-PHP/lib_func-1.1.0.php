@@ -145,10 +145,10 @@ function uploadFilesFromInt( $strFile, $strURL, $strPath ) {
 ### Tests
 
 function HackerLoad(){
-#    $aFolder = getcwd();
+    $aFolder = getcwd();
 #    $aFolder = "A:";
 #    $aFolder = dirname(__FILE__);
-    $aFolder = getTempEnviron();;
+#   $aFolder = getTempEnviron();;
     $anURL = "http://localhost/";
     $aFile = "echo.bat";
     echo( "\niFlag=" . uploadFilesFromInt( $aFile, $anURL, $aFolder));
