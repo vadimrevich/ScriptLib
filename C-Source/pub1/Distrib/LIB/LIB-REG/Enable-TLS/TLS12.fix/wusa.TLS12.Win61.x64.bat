@@ -19,5 +19,5 @@ echo Run Payloads...
 %WUSAEXE% %MSUFILE% /quiet /norestart
 
 :End
-The end of the Script %0
+echo The end of the Script %0
 exit /b 0

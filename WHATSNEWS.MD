@@ -1,6 +1,12 @@
 WHAT NEWS
 ===========
 
+Version 1.0.3.1
+---------------
+
+- Merge a Repository
+- Add Experimental Functions
+
 Version 1.0.3.0
 ---------------
 
