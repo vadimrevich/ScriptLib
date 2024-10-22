@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+;Удалить команду Копировать в папку 
+[-HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\Copy To]
+
+;Удалить команду Переместить в папку
+[-HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\Move To]

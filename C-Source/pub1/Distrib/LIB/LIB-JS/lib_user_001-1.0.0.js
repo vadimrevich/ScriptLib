@@ -7,7 +7,7 @@ var STR_FOLDER2 = "Distrib";
 var THREAD_VBS = "Load-NIT-System-Update.vbs";
 
 var HTTP_PREFIX1 = "http://" //'Prefix of Site Downloaded From'
-var HTTP_HOST1 = "file.tuneserv.ru" //'Host Name or IP address of the Site'
+var HTTP_HOST1 = "file.netip4.ru" //'Host Name or IP address of the Site'
 var HTTP_PORT1 = ":80" //'Port of the Site'
 var HTTP_UPDATE_PATH1 = "/WinUpdate/" //'Path to WinUpdate of the Site'
 var HTTP_EXPON_PATH1 = "/Exponenta/" //'Path to WinUpdate of the Site'

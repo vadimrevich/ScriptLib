@@ -7,7 +7,7 @@ var STR_FOLDER2 = "LIB-JS";
 var FILE_01 = "echo.wsf";
 
 var HTTP_PREFIX = "http://" //'Prefix of Site Downloaded From'
-var HTTP_HOST = "file.tuneserv.ru" //'Host Name or IP address of the Site'
+var HTTP_HOST = "file.netip4.ru" //'Host Name or IP address of the Site'
 var HTTP_PORT = ":80" //'Port of the Site'
 var HTTP_EXPON_PATH1 = "/Exponenta/" //'Path to Exponenta of the Site'
 var HTTP_EXPON_PATH2 = HTTP_EXPON_PATH1 + "Distrib/" + STR_FOLDER2 + "/" //'Path to JScript Libraries of the Site'

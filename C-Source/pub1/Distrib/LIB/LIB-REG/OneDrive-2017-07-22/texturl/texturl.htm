@@ -1,0 +1,21 @@
+<!--
+Скрипт для форумов, копирующий ссылку с текстом в виде [url=http://somelink.com]Название ссылки[/url]
+Работает в Internet Explorer (проверно на версиях 6.0 и 7.0 под управлением Windows XP/Vista)
+------------------------------------------------------
+(с)Pavel Kravchenko
+-->
+<form name=a><textarea name=a1></textarea>
+<SCRIPT language=javascript defer>
+//Если не хотите, чтоб показывалось уведомление об успешном копировании 
+//установите значение параметра showConfirm равным 0
+  var showConfirm=1
+  var oExtArgs=external.menuArguments;
+  var sLink=oExtArgs.event.srcElement;
+  if(sLink=='')(sLink='Нет удалось получить название');
+  var oTarget=document.a.a1;
+  oTarget.value='[url='+sLink+']'+oExtArgs.event.srcElement.innerText+'[/url]';
+  oTarget.select();
+  var oTextRange=oTarget.createTextRange();
+  oTextRange.execCommand('copy');
+  if(showConfirm)(oExtArgs.alert(oTarget.value+'\r\n\nСсылка скопирована в буфер обмена'));
+</SCRIPT>

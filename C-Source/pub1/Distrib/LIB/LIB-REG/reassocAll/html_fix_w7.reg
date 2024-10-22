@@ -1,0 +1,90 @@
+Windows Registry Editor Version 5.00
+
+;Восстановление ассоциирования файлов [.HTM/HTML] - Windows 7
+;http://pavelmvp.spaces.live.com/
+
+[HKEY_CLASSES_ROOT\.HTM]
+"PerceivedType"="text"
+@="htmlfile"
+"Content Type"="text/html"
+
+[HKEY_CLASSES_ROOT\.HTM\PersistentHandler]
+@="{eec97550-47a9-11cf-b952-00aa0051fe20}"
+
+[HKEY_CLASSES_ROOT\.HTML]
+"PerceivedType"="text"
+@="htmlfile"
+"Content Type"="text/html"
+
+[HKEY_CLASSES_ROOT\.HTML\PersistentHandler]
+@="{eec97550-47a9-11cf-b952-00aa0051fe20}"
+
+[HKEY_CLASSES_ROOT\htmlfile]
+"AppUserModelID"="Microsoft.InternetExplorer.Default"
+@="HTML Document"
+"FriendlyTypeName"="@C:\\Windows\\system32\\ieframe.dll,-912"
+
+[HKEY_CLASSES_ROOT\htmlfile\CLSID]
+@="{25336920-03F9-11cf-8FD0-00AA00686F13}"
+
+[HKEY_CLASSES_ROOT\htmlfile\DefaultIcon]
+@="\"%1\""
+
+[HKEY_CLASSES_ROOT\htmlfile\ScriptHostEncode]
+@="{0CF774D0-F077-11D1-B1BC-00C04F86C324}"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell]
+@="opennew"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\open]
+@="Open in S&ame Window"
+"MUIVerb"="@C:\\Windows\\system32\\ieframe.dll,-5732"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\open\command]
+@="\"C:\\Program Files\\Internet Explorer\\IEXPLORE.EXE\" -nohome"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\open\ddeexec]
+@="\"file://%1\",,-1,,,,,"
+"NoActivateHandler"=""
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\open\ddeexec\Application]
+@="IExplore"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\open\ddeexec\Topic]
+@="WWW_OpenURL"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\opennew]
+"MUIVerb"="@C:\\Windows\\system32\\ieframe.dll,-5731"
+@="&Open"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\opennew\command]
+@="\"C:\\Program Files\\Internet Explorer\\IEXPLORE.EXE\" %1"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\opennew\ddeexec]
+@="\"%1\",,-1,0,,,,"
+"NoActivateHandler"=""
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\opennew\ddeexec\Application]
+@="IExplore"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\opennew\ddeexec\IfExec]
+@="*"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\opennew\ddeexec\Topic]
+@="WWW_OpenURLNewWindow"
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\printto\command]
+@="\"C:\\Windows\\system32\\rundll32.exe\" \"C:\\Windows\\system32\\mshtml.dll\",PrintHTML \"%1\" \"%2\" \"%3\" \"%4\""
+
+[HKEY_CLASSES_ROOT\htmlfile\shellex\{8895B1C6-B41F-4C1C-A562-0D564250836F}]
+@="{f8b8412b-dea3-4130-b36c-5e8be73106ac}"
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.HTM\UserChoice]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.HTML\UserChoice]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.HTM\OpenWithProgids]
+"htmlfile"=hex(0):
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.HTML\OpenWithProgids]
+"htmlfile"=hex(0):

@@ -1,0 +1,33 @@
+Windows Registry Editor Version 5.00
+
+;Восстановление ассоциирования файлов [.XML] - Windows 7
+;http://pavelmvp.spaces.live.com/
+
+[HKEY_CLASSES_ROOT\.XML]
+@="xmlfile"
+"Content Type"="text/xml"
+"PerceivedType"="text"
+
+[HKEY_CLASSES_ROOT\.XML\PersistentHandler]
+@="{7E9D8D44-6926-426F-AA2B-217A819A5CCE}"
+
+[HKEY_CLASSES_ROOT\xmlfile]
+@="XML Document"
+"EditFlags"=hex:00,00,00,00
+"FriendlyTypeName"=hex(2):40,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,\
+  00,6f,00,6f,00,74,00,25,00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,\
+  32,00,5c,00,6d,00,73,00,78,00,6d,00,6c,00,33,00,72,00,2e,00,64,00,6c,00,6c,\
+  00,2c,00,2d,00,31,00,00,00
+
+[HKEY_CLASSES_ROOT\xmlfile\BrowseInPlace]
+
+[HKEY_CLASSES_ROOT\xmlfile\CLSID]
+@="{48123BC4-99D9-11D1-A6B3-00C04FD91555}"
+
+[HKEY_CLASSES_ROOT\xmlfile\DefaultIcon]
+@="\"%1\""
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.XML]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.XML\OpenWithProgids]
+"xmlfile"=hex(0):

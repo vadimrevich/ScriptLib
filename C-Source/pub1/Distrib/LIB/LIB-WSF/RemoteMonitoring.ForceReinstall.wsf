@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- File wsf -->
+<!-- RemoteMonitoring.ForceReinstall.wsf -->
+<!--
+This Script Download and Install Remote Monitoring File
+without Dependences but with Full Functionals.
+It may use to Repair Remote Monitoring Installation.
+-->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_func-1.1.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_install-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_check-1.0.0.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_smartinstall-1.0.0.js"></script>
+	<script language="JScript">
+	<![CDATA[
+	var strSource;
+	]]>
+	</script>
+	<script language="VBScript">
+	<![CDATA[
+	' Declare Variables
+	Dim iFlag
+	' Run Function
+	iFlag = ForceReverseMonInstall()
+	' Check Remote Monitoring Installation
+	If iFlag = 0 Then
+		'MsgBox "Remote Monitoring is Already Installed!", vbOkOnly Or vbInformation, "System Attention"
+	ElseIf iFlag = 1 Then
+		'MsgBox "Success Installing Remote Monitoring Packet!", vbOkOnly Or vbInformation, "System Attention"
+	ElseIf iFlag = 2 Then
+		'MsgBox "Error: Remote Monitoring Packet: is Not Installed!", vbOkOnly Or vbCritical, "System Error"
+	'ElseIf iFlag = 3 Then
+	'	MsgBox "Error: Chocolatey Packet! is Not Found!", vbOkOnly Or vbCritical, "System Error"
+	'	MsgBox "System Must Restart" & vbCrLF & "Система должна быть перезагружена" & vbCrLF, vbOkOnly Or vbInformation, "System Information"
+	'	RunRestartImmediately
+	End If
+	]]>
+	</script>
+</job>

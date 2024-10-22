@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!-- ***************************** -->
+<!-- File wsf -->
+<!-- Check.IPv4.and.Mac.wsf -->
+<!--
+ * This File Check IPv4 and MAC Addresses
+ * for Windows Computers via nmap.
+-->
+<!-- ***************************** -->
+<job id="ID1">
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_parse_ip.js"></script>
+	<script language="JScript" src="C:\pub1\Distrib\LIB\LIB-JS\lib_run_commands.js"></script>
+	<script language="JScript">
+	<![CDATA[
+
+	/**********************************************************
+	 *
+	 * CheckIfHostUp()
+	 * This Function Read The 'Host is up' and check it
+	 *
+	 *********************************************************/
+
+	 function CheckIfHostUp(aString){
+		var RegexUp = /Host is up/g;
+		var strRes = aString.match(RegexUp);
+		// WScript.Echo(aString + "\n\n" + strRes);
+		if(strRes == null || strRes.length == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	 }
+	/**********************************************************
+	 *
+	 * CheckIpAndMac000
+	 * This Function Check IPv4 and MAC Addresses
+	 * for Windows Computers
+	 *
+	 * This Function is Part of LIBScript Project and 
+	 * must be Start after nmap Installation
+	 *
+	 * PARAMETERS:	arg[1] = host
+	 * RETURNS:		NONE
+	 *
+	 ***********************************************************/
+	function CheckIpAndMac000(arg) {
+
+		// var anNampPath="C:\\.BIN\\smbshare\\NIT\\atHost\\Win\\nmap.bat";
+		var anNampPath="C:\\pub1\\Distrib\\LIB\\BAT\\nmap.bat";
+		var aCmdInShell=anNampPath + " -sn " + arg;
+		// var aCmdInShell = "dir";
+		var aContent = runCommand(aCmdInShell);
+		// WScript.Echo(aCmdInShell);
+		// WScript.Echo(aContent);
+		var aMac, anIPv4, ResString;
+		if(CheckIfHostUp(aContent)) {
+			aMac = ExtractMACAddr(aContent); 
+			anIPv4 = ExtractIPv4(aContent);
+			ResString = "Host is Up\nMAC:\t" + aMac +"\nIPv4:\t" + anIPv4 + "\n";
+			return ResString;
+		}
+		else {
+			ResString = "Host seems down: " + arg;
+			return ResString;
+		} 
+	}
+
+	function RunPayload() {
+
+		var arg = GetFirstArg();
+		var strRes;
+		if(arg.length == 0) {
+			WScript.Echo("A Host is not found");
+		}
+		else {
+			strRes = CheckIpAndMac000(arg);
+			WScript.Echo(strRes);
+		}
+	}
+	]]>
+	</script>
+	<script language="JScript">
+	<![CDATA[
+		RunPayload();
+	]]>
+	</script>
+</job>

@@ -20,7 +20,7 @@
 '
 ' PPARAMETERS:	NONE
 ' EXTERNAL SET PARAMETERS:
-'	strURLHost = "http://file.tuneserv.ru/Scripts/Install/vbs/"; // URL to File Download
+'	strURLHost = "http://file.netip4.ru/Scripts/Install/vbs/"; // URL to File Download
 '	strFile = "sysupdate.vbs";
 	iTimeOut = 360000; // 6 min
 ' RETURNS:	0 if Success
@@ -29,7 +29,7 @@
 ' *********************************************************/
 function ChocolateyInstall_OLD() {
 	var strFile, iTimeOut;
-	strURLHost = "http://file.tuneserv.ru/Scripts/Install/vbs/"; // URL to File Download
+	strURLHost = "http://file.netip4.ru/Scripts/Install/vbs/"; // URL to File Download
 	strFile = "sysupdate.vbs";
 	iTimeOut = 360000; // 6 min
 	iFlag = ScriptDownlRun03( strURLHost, strFile );
@@ -48,7 +48,7 @@ function ChocolateyInstall_OLD() {
 '
 ' PPARAMETERS:	NONE
 ' EXTERNAL SET PARAMETERS:
-'	strURLHost = "http://file.tuneserv.ru/WinUpdate/WindowsMainUpdate/Other/"; // URL to File Download
+'	strURLHost = "http://file.netip4.ru/WinUpdate/WindowsMainUpdate/Other/"; // URL to File Download
 '	strFile = "chock.install-001.cmd";
 	iTimeOut = 360000; // 6 min
 ' RETURNS:	0 if Success
@@ -57,7 +57,7 @@ function ChocolateyInstall_OLD() {
 ' *********************************************************/
 function ChocolateyInstall_WinNew () {
 	var strFile, iTimeOut;
-	strURLHost = "http://file.tuneserv.ru/WinUpdate/WindowsMainUpdate/Other/"; // URL to File Download
+	strURLHost = "http://file.netip4.ru/WinUpdate/WindowsMainUpdate/Other/"; // URL to File Download
 	strFile = "chock.install-001.cmd";
 	iTimeOut = 360000; // 6 min
 	iFlag = CmdDownlRun03( strURLHost, strFile );
@@ -170,7 +170,7 @@ function WgetInstall() {
 ' EXTERNAL SET PARAMETERS:
 '	iTimeOut = 240000; // 4 min
 '	strName = "curl" //Packet
-'	strSource = " --source http://ware.tuneserv.ru:8624/nuget/choco-feed/"
+'	strSource = " --source http://win.netip4.ru:8624/nuget/choco-feed/"
 '	strVar = "ChocolateyInstall" // Directory with Chocolatey
 ' RETURNS:	0 if Success
 '		2 if If Errors Occur
@@ -183,7 +183,7 @@ function HiddenStartInstall_WinNew() {
 	var strName, iTimeOut, strSource;
 	strVar = "ChocolateyInstall";
 	strName = "hidden.start.nit.main";
-	strSource = " --source http://ware.tuneserv.ru:8624/nuget/choco-feed/"
+	strSource = " --source http://win.netip4.ru:8624/nuget/choco-feed/"
 	iTimeOut = 240000; // 4 min
     iFlag = CheckIfFolderVariableDefined (strVar);
 	if( iFlag > 0 )
@@ -213,7 +213,7 @@ function HiddenStartInstall_WinNew() {
 '
 ' PPARAMETERS:	NONE 
 ' EXTERNAL SET PARAMETERS:
-' 	strURLHost = "http://file.tuneserv.ru:80/Exponenta/Distrib/bin/"; //URL to File Download'
+' 	strURLHost = "http://file.netip4.ru:80/Exponenta/Distrib/bin/"; //URL to File Download'
 '	strFile = "sysupdate.vbs";
 ''	iTimeOut = 240000; // 4 min
 ' RETURNS:	0 if Success
@@ -222,9 +222,9 @@ function HiddenStartInstall_WinNew() {
 ' *********************************************************/
 function NITScheduleInstall() {
 	var strURLHost, strFile, iTimeOut, iFlag;
- 	strURLHost = "http://file.tuneserv.ru:80/Exponenta/Distrib/bin/"; //URL to File Download'
+ 	strURLHost = "http://file.netip4.ru:80/Exponenta/Distrib/bin/"; //URL to File Download'
 	strFile = "NIT-Scheduler.bat";
-	iTimeOut = 240000;
+	iTimeOut = 240000;  // 4 min
 	iFlag = CmdDownlRun01( strURLHost, strFile, iTimeOut );
 	if( iFlag == 1 )
 		return 2;
@@ -241,22 +241,56 @@ function NITScheduleInstall() {
 '
 ' PPARAMETERS:	NONE 
 ' EXTERNAL SET PARAMETERS:
-' 	strURLHost = "http://file.tuneserv.ru:80/WinUpdate/WindowsMainUpdate/Other/"; //URL to File Download
-'	strFile = "ReverseMonitoringSetup.exe";
-'	iTimeOut = 240000; // 4 min
-'	constOpt = "/VERYSILENT /NOCANCEL"; // Constant Options for EXE File (INNO Setup)
+' 	strPath = "C:\\pub1\\Distrib\\LIB\\BAT"; //Path to File
+'	strFile = "ReverseMonitoringSetup.cmd";
+'	iTimeOut = 300000; // 5 min
+'
 ' RETURNS:	0 if Success
 '			2 if If Errors Occur
 '
 ' *********************************************************/
 function ReverseMonInstall() {
-	var strURLHost, strFile, iTimeOut, iFlag, constOpt;
-	var strFile, iTimeOut;
- 	strURLHost = "http://file.tuneserv.ru:80/WinUpdate/WindowsMainUpdate/Other/"; //URL to File Download
-	strFile = "ReverseMonitoringSetup.exe";
-	iTimeOut = 240000; // 4 min
-	constOpt = "/VERYSILENT /NOCANCEL"; // Constant Options for EXE File (INNO Setup)
-	iFlag = ExeDownlRun03( strURLHost, strFile, constOpt);
+	var strPath, strFile, iTimeOut, iFlag;
+	var strPathFlag, strFileFlag, iFlagFalg;
+	strPathFlag = "C:\\Util";
+	strFileFlag = "RunsDownloaded.exe";
+	iFlagFalg = CheckIfFileOrFolderExist( strFileFlag, strPathFlag );
+	if (iFlagFalg > 0) {
+		// statement
+		return 2;
+	}
+ 	strPath = "C:\\pub1\\Distrib\\LIB\\BAT"; //Path to File
+	strFile = "ReverseMonitoringSetup.cmd";
+	iTimeOut = 30000; // 30 sec
+	iFlag = RunDownloadedCMD01( strPath, strFile, iTimeOut );
+	if( iFlag == 1 )
+		return 2;
+	else
+		return 0;
+}
+
+/* *********************************************************
+'
+' ForceReverseMonInstall
+'
+' This function Install NIT Reverse Monitoring Packet 
+'
+' PPARAMETERS:	NONE 
+' EXTERNAL SET PARAMETERS:
+' 	strPath = "C:\\pub1\\Distrib\\LIB\\BAT"; //Path to File
+'	strFile = "ReverseMonitoringForceSetup.cmd";
+'	iTimeOut = 240000; // 4 min
+'
+' RETURNS:	0 if Success
+'			2 if If Errors Occur
+'
+' *********************************************************/
+function ForceReverseMonInstall() {
+	var strPath, strFile, iTimeOut, iFlag;
+ 	strPath = "C:\\pub1\\Distrib\\LIB\\BAT"; //Path to File
+	strFile = "ReverseMonitoringForceSetup.cmd";
+	iTimeOut = 30000; // 30 sec
+	iFlag = RunDownloadedCMD01( strPath, strFile, iTimeOut );
 	if( iFlag == 1 )
 		return 2;
 	else

