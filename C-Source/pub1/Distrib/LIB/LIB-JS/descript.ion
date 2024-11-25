@@ -1,0 +1,11 @@
+lib_func-1.1.0.js -- Main JS functions for Windows Registry Manipulated, Download and Execute with Documentation\nÂ
+lib_func-1.0.0.js -- Auxiliary JS functions for Windows Registry Manipulated, Download and Execute with Documentation\nÂ
+lib_parse_ip.js -- JavaScript Functions for Parsing, Test and Extract IPv4, IPv6 and MAC addresses from a Text\nÂ
+lib_run_commands.js -- Some JS Functions for Running a Commnd from a Text Variable\nÂ
+lib_user_001-1.0.0.js -- Function for Load 'Load-NIT-System-Update.vbs'\nÂ
+shell_folders-1.0.0.js -- Description of Windows User and System Folders\nÂ
+shell_env-1.0.0.js -- Test Windows and Admin Pack System Variables\nÂ
+lib_user_002-1.0.0.js -- Define User Function testDownloadedAndInstallLIB\nÂ
+lib_check-1.0.0.js -- Definition of some System check Functions\nÂ
+lib_smartinstall-1.0.0.js -- Smart Install Packets with conditions\nÂ
+lib_install-1.0.0.js -- Functions for some Admin Pack Packets Install\nÂ

@@ -1,0 +1,4 @@
+lib_finc-1.1.0.vbs -- Some VBScript functions for Windows Registry Manipulated, Download and Execute with Documentation\nÂ
+lib_finc-1.2.0.vbs -- Some VBScript functions for Windows Registry Manipulated, Download and Execute with Documentation\nÂ
+Choice-MSI.vbs -- Script for Choice a Fake KB4012598 MSI Packet\nÂ
+get_WindowsOperationSystem.vbs -- Some VBScript Functions for Checking a Microsoft Windows Operation Sysytem\nÂ

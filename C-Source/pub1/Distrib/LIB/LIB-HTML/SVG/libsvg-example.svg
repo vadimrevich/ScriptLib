@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 202 202" id="VK_Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<style></style>
+
+<!-- Add a Payloads Script Block -->
+
+<script type="text/javascript" src="./lib-1.0.0-svg.js"></script>
+<script type="text/javascript">
+    <![CDATA[ 
+
+    /******************************************************
+     *
+     * Run Payloads when any key Pressed
+     *
+     ***/
+    /***
+    window.addEventListener('load', function() {
+        document.rootElement.addEventListener('keydown', function() {
+            // Run payload Function
+
+        }, false);
+    }, false);
+    ***/
+
+    /******************************************************
+     *
+     * Run Payloads when Click a mouse at Docoments Root
+     *
+     ***/
+    /***
+    window.addEventListener('load', function() {
+        document.rootElement.addEventListener('click', function() {
+            // Run payload Function
+
+        }, false);
+    }, false);
+    ***/
+    
+    /******************************************************
+     *
+     * Run Payloads when a Document Open
+     *
+     ***/
+    /***
+    window.addEventListener('load', function() {
+        // Run payload Function
+
+    }, false);
+    ***/
+
+    ]]>
+</script>
+
+<!-- The End of the Payloads Script Block -->
+
+<g id="Base">
+
+<defs>
+
+</defs>
+
+<clipPath id="SVGID_2_">
+
+
+</clipPath>
+
+</g>
+
+
+</svg>

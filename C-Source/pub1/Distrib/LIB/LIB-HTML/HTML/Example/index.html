@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Library Example of HTML file</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<style>
+			body {
+				font-family: Arial, Helvetica, sans serif;
+			}
+			.atext {
+				margin: 0px 20px;
+				max-width: 300px;
+				display: inline-block;
+			}
+			.vk_logo {
+				float: left;
+				display: block;
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Test example of a macro library</h1>
+		<div class="atext">
+			<p>You can view a page alert message when this page is loaded.</p>
+		</div>
+
+		<script type="text/javascript">
+    	
+			/**********************************************************
+			 * ScriptAlert00()
+			 * This function will Show a Script Alert
+			 */
+			function ScriptAlert00(){
+
+    			// Define a Variable
+    			var aMessage;
+    			aMessage = "This is an Alert from the Main Page Script.\n\nHello!";
+
+    			// Run Payload
+    			alert(aMessage);
+    			return;
+			}
+
+			/***
+			 * Make this a payload code
+			**/
+			function aPayload() {
+				// Please put here a payload code
+				ScriptAlert00();
+			}
+
+			/******************************************************
+   			 *
+   			 * Run Payloads when a Document Open
+   			 *
+   			***/
+
+			window.onload = aPayload; // This must be placeced a payload
+
+
+		</script>
+	</body>
+</html>

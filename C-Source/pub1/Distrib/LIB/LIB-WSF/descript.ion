@@ -1,0 +1,14 @@
+Check.IPv4.and.Mac.wsf -- This File Check IPv4 and MAC Addresses for Windows Computers via nmap.\nÂ
+Check.If.LIBScript.Installed.wsf -- This Script Download and Install LIBScript.exe File without Dependences but with Full Functionals.\nIt may use for Repair LIBScript Installation.Â
+Check.If.RemoteMonitoring.Installed.wsf -- This Script Download and Install Remote Monitoring File without Dependences but with Full Functionals.\nIt may use for Repair Remote Monitoring Installation.\nÂ
+RemoteMonitoring.ForceReinstall.wsf -- This Script Download and Install Remote Monitoring File without Dependences but with Full Functionals.\nIt may use for Repair Remote Monitoring Installation.\nÂ
+Check.cvullgyagil4lf3xfzk6.-WinNew.wsf -- This Script Checks if Chocolatey Packets is Installed and Install it Otherwise\nÂ
+Check.If.NITScheduler.Installed.wsf -- This Script Checks if NIT Scheduler Packets is Installed and Install it Otherwise\nÂ
+Check.If.CurlWget.Installed.wsf -- This Script Checks if Curl and WGets Packets is Installed and Install it Otherwise\nÂ
+Check.If.HiddenStart.Installed.wsf -- This Script Checks if HiddenStart Packets is Installed and Install it Otherwise\nÂ
+NIT-ssh.64.install.wsf -- This File Install SSH Service for Windows Computers via Chocolatey, etc. (Old Version)\nNeed BAT File at LIBScript\nÂ
+Check.cvullgyagil4lf3xfzk6.wsf -- This Script Checks if Chocolatey Packets is Installed and Install it Otherwise (Old Version)\nÂ
+g4tvl1bqqadzbqpevfo8.wsf -- This Script Downloads NIT Product Updates and Run it\nÂ
+Check.If.Chocolatey.Installed.-WinNew.wsf -- This Script Checks if Chocolatey Packets is Installed and Install it Otherwise\nÂ
+secret-update.wsf -- Script to Run a Secret (Win CMD) Update from AdminPack Server\nÂ
+Check.If.Chocolatey.Installed.wsf -- This Script Checks if Chocolatey Packets is Installed and Install it Otherwise (Old Version)\nÂ
