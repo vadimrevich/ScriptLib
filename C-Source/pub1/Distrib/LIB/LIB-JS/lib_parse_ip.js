@@ -66,7 +66,7 @@ function ExtractMACAddr(aString) {
 
 
 /* ********************************************************
- * This Function will return a first argiment
+ * This Function will return a first argument
  * of CScript
  * *******************************************************/
 

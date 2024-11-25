@@ -1,1 +1,11 @@
-NIT-ssh.64.install.cmd -- OpenSSH Server x64 Insctall\nÂ
+NIT-ssh.64.install.cmd -- OpenSSH Server x64 Insctall (Old version of the Script)\nÂ
+set_downloads_var.bat -- This Script Gets a Windows Users Download Folder Name (Example)\nÂ
+currentphp-composer-install.bat -- Composer Install Command File\nÂ
+auxiliary-002.cmd -- Same as Load-and-Install .vbs\nÂ
+SetNetDiscovery.cmd -- This Script make Computer Visible from a Network\nÂ
+checkDef.cmd -- Check Windows OS Version and Antivirus to be Installed\nÂ
+Install.St.cmd -- Some Script for Remiting Server Monitoring\nÂ
+postinstall-LIBScript.bat -- File for Install and Register some Auxiliary Modules after Unpack the SFX Archieve\nÂ
+auxiliary.cmd -- Some Auxiliaries Installs after Admin Pack Installation\nÂ
+preuninstall-LIBScript.bat -- Function for Pre Uninstall a WinScript\nÂ
+echo.bat -- Test ECHO Script\nÂ

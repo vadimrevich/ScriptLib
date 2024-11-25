@@ -1,6 +1,14 @@
 WHAT NEWS
 ===========
 
+Version 1.0.4.0
+---------------
+
+- Add Documentations
+- Add Links file
+- Add Some Functions
+- Add Download File Directory
+
 Version 1.0.3.1
 ---------------
 

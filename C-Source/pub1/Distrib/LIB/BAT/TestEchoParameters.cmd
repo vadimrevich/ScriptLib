@@ -1,15 +1,13 @@
 @echo on
 rem *******************************************************
-rem AllowPoShScriptsGlobal.cmd
-rem This Script Allows to Run any Powershell Scripts
-rem at Target System with help of Registry Editing
+rem TestEchoParameters.cmd
+rem This Test Script Simply Run a %1 Script
 rem The Script Runs with Elevated Privileges
 rem
 rem RETURNS:	0 if Success
 rem		1 if Check Integrity Folder Error
 rem		2 if Check Integrity File Error
 rem *******************************************************
-@echo off
 @echo off
 
 rem Initialization of Variables

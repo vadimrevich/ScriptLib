@@ -1,1 +1,20 @@
-LIB-REG -- каталог с твиками реестра\nОбращаться с осторожностью! Включать только те твики, которые Вам необходимы\nВ
+LIB-REG -- register tweak directory\nDangerous! Turn on only necessary for you tweaks.\n\nВ
+LIB-WSF -- directory with ready wsh scripts\nВ
+LIB-AHK - aDirectory with AHK library Functions and ready files\nВ
+LIB-DLL.zip -- an Archive with Ready DLL files (COM-objects and other)\nВ
+Exe.zip - an Archive of a Directory with Ready Files\nВ
+Exe - a Directory with Ready Windows Executable Files\nВ
+LIB-DLL -- a DIrectory with Ready DLL files (COM-objects and other)\nВ
+LIB-HTML -- Scripts, HTML Examples and JS Functions Libraries for programming\nВ
+LIB-PHP -- PHP Function Libraries and Examples for Programming\nВ
+LIB-PY3 -- Python 3 Function Libraries and Test Examples for Programming\nВ
+LIB-RUBY -- Ruby Function Libraries and Examples for Programming\nВ
+LIB-VBS -- VBScript Functions Libraries, Test Examples and Ready Scripts for Programming\nВ
+LIB-JS -- JS Functions Libraries, Test Examples and Ready Programs for Programming\nВ
+LIB-PWSH -- PowerShell Scripts Test Examples and Ready Programs\nВ
+BAT -- Windows Command Scripts Test Examples and Ready Program\nВ
+LIB-Perl -- Perl Finctions Library, Test Examples and Raedy Scripts\nВ
+descript.ion -- Directory Description (This File)\nВ
+DownloadFile -- Directory with Scripts for Downloads Files from web Server (Server Side Scripts)\nВ
+README.md -- Readme File with Libraries Description (on Russian and English)\nВ
+README.txt -- Readme File with Libraries Description (on Russian and English)\nВ
