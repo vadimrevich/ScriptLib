@@ -9,3 +9,4 @@ lib_user_002-1.0.0.js -- Define User Function testDownloadedAndInstallLIB\nÂ
 lib_check-1.0.0.js -- Definition of some System check Functions\nÂ
 lib_smartinstall-1.0.0.js -- Smart Install Packets with conditions\nÂ
 lib_install-1.0.0.js -- Functions for some Admin Pack Packets Install\nÂ
+lib_run_commands-0.1.js -- Some JS Functions for Running a Commnd from a Text Variable\nÂ
