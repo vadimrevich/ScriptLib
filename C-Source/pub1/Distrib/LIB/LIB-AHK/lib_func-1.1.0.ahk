@@ -453,17 +453,17 @@ HackerScriptElevated(){
 
 
 testRun(){
-    ;strPath := "."
-    ;strFile := "HelloWorld.ahk"
+    strPath := "."
+    strFile := "HelloWorld.ahk"
     ;strPath := "C:\pub1\Distrib\LIB\BAT"
     ;strFile := "echo.bat"
-    strPath := "C:\pub1\Distrib\LIB\Exe"
-    strFile := "HelloWorld01.exe"
+    ;strPath := "C:\pub1\Distrib\LIB\Exe"
+    ;strFile := "HelloWorld01.exe"
     strOpt = ""
     ScriptFullPath := strPath . "\" . strFile
     MsgBox, %ScriptFullPath%
-    ;iRes := RunDownloadedAhk01( strPath, strFile )
-    iRes := RunDownloadedExe01( strPath, strFile, strOpt )
+    iRes := RunDownloadedAhk01( strPath, strFile )
+    ;iRes := RunDownloadedExe01( strPath, strFile, strOpt )
     MsgBox, %iRes%
 }
 
@@ -487,3 +487,4 @@ testURL(){
 }
 
 HackerScriptElevated()
+;testRun()

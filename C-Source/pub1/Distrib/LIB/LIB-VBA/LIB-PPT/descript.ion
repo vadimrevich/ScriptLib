@@ -1,0 +1,4 @@
+VersionCheck.bas -- VBA Module with Windows Checking Scripts\nÂ
+PwshStart.bas -- VBA modules with Main Scripts for Powershell Loading and Executing\nÂ
+UserPwshCmd.bas -- VBA Module with Main Powershell Scripts For starting when documents loading or closing\nÂ
+descript.ion -- Directory Description (this file)\nÂ
